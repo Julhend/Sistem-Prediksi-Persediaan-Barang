@@ -147,6 +147,7 @@ return [
     'create' => "Create",
     'update' => "Update",
     'print' => "Print",
+    'close' => "Close"
 
 
 

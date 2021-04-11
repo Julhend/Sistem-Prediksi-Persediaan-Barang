@@ -158,41 +158,20 @@
                                                 class="form-control">{{ old('description') }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>@lang('site.numeroregistrecommerce')</label>
-                                            <input type="text" name="rc" id="" class="form-control"
-                                                value="{{ old('rc') }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>@lang('site.numeroarticle')</label>
-                                            <input type="number" name="article" id="" class="form-control"
-                                                value="{{ old('article') }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>@lang('site.nif')</label>
-                                            <input type="number" name="nif" id="" class="form-control"
-                                                value="{{ old('nif') }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>@lang('site.nis')</label>
-                                            <input type="number" name="nis" id="" class="form-control"
-                                                value="{{ old('nis') }}">
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">@lang('site.close')</button>
-                                <button type="submit" class="btn btn-primary">@lang('site.save')</button>
-                            </div>
-                        </form>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">@lang('site.close')</button>
+                        <button type="submit" class="btn btn-primary">@lang('site.save')</button>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div><!-- /.card-body -->
+    </div>
+</div><!-- /.card-body -->
 </div>
 <div class="col-md-6">
     <div class="card card-primary card-outline" style="height:80vh;">
