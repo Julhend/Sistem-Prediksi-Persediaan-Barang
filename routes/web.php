@@ -53,6 +53,14 @@ Route::group(
                 'show'
             ]);
             Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
+
+            // test for predict
+            Route::resource('/prediksi', 'Dashboard\ClientController')->except([
+                'show'
+            ]);
+           // Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
+            //--------------
+
             Route::resource('/provider', 'Dashboard\ProviderController')->except([
                 'show'
             ]);

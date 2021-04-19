@@ -98,11 +98,12 @@
                     </a>
                 </li>
                 @endif
-                @if (auth()->user()->hasPermission('read_prediksi'))
+                {{-- //read_prediksi --}}
+                @if (auth()->user()->hasPermission('read_clients'))
                 <li class="nav-item">
                     <a href="{{ url('/prediksi') }}"
                         class="nav-link {{ (request()->segment(2) == 'prediksi') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-archive"></i>
+                        <i class="nav-icon fas fa-compass"></i>
                         <p>
                             @lang('site.prediksi')
                         </p>

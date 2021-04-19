@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Facture | {{ $purchase->number_purchase }}</title>
+    <title>Factur | {{ $purchase->number_purchase }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Theme style -->
@@ -174,7 +174,6 @@
                 bottom: 0;
             }
         }
-
     </style>
 
     <!-- Google Font: Source Sans Pro -->
@@ -187,16 +186,13 @@
             <div class="card-header p-4" style="border: 2px solid #000000;border-radius: 10px;">
                 <img src="{{ asset('/uploads/settings/'.$logo) }}" style="width:200px;" alt="" srcset="">
                 <div class="float-right text-center">
-                    <h3 class="mb-0">{{ $activity }}</h3>
-                    Address : {{ $address }} <br>Phone : {{ $phone }} <br> N°
-                    Registre Commerce
-                    : {{ $rc }}<br>N°Article : {{ $article }}<br>NIF : {{ $nif }}<br>NIS :
-                    {{ $nis }}
+                    <h3 class="mb-0">{{ $store_name }}</h3>
+                    Address : {{ $address }} <br>Phone : {{ $phone }}
                 </div>
             </div>
             <div class="card-body" style="padding: 0;">
                 <div class="text-center too-border">
-                    <h4>Facture : {{ $purchase->number_purchase }}</h4>
+                    <h4>Number : {{ $purchase->number_purchase }}</h4>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-print-6 text-center">
@@ -205,20 +201,18 @@
                                     style="font-size:15px">{{ date_format($purchase->created_at,"d/m/Y") }}</span>
                             </h4>
 
-                            <h4>Votre Commercial : <span style="font-size:15px">{{ Auth::user()->first_name }}
+                            <h4>Admin : <span style="font-size:15px">{{ Auth::user()->first_name }}
                                     {{ Auth::user()->last_name }}</span> </h4>
                         </div>
                     </div>
                     <div class="col-md-6 col-print-6 text-center">
                         <div class="too-border">
-                            <h4>provider Information</h4>
+                            <h4>Supplier Information</h4>
                         </div>
                         <div class="too-border">
-                            provider Name : {{ $provider_purchases->provider_name }}<br>Address :
+                            Supplier Name : {{ $provider_purchases->provider_name }}<br>Address :
                             {{ $provider_purchases->address }}
-                            <br>Phone : {{ $provider_purchases->phone }} <br> N° Registre Commerce :
-                            {{ $provider_purchases->rc }}<br>N°Article : {{ $provider_purchases->article }}<br>NIF :
-                            {{ $provider_purchases->nif }}<br>NIS : {{ $provider_purchases->nis }}
+                            <br>Phone : {{ $provider_purchases->phone }}
                         </div>
                     </div>
                 </div>
@@ -226,11 +220,11 @@
                     <table class="table table-bordered" style="margin-bottom: 0;">
                         <thead>
                             <tr>
-                                <th style="width: 50px;">N°</th>
+                                <th style="width: 50px;">No</th>
                                 <th style="width: 500px;">Product</th>
-                                <th style="width: 100px;text-align:center;">Price unitaire</th>
-                                <th style="width: 100px;text-align:center;">Quntite</th>
                                 <th style="width: 100px;text-align:center;">Price</th>
+                                <th style="width: 100px;text-align:center;">Quantity</th>
+                                <th style="width: 100px;text-align:center;">Total Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -239,61 +233,41 @@
                                 <td>{{ $i+1 }}</td>
                                 <td>{{ $product_purchase->product_name }}</td>
                                 <td style="text-align:center;">
-                                    ${{ number_format($product_purchase->purchase_price, 2) }}
+                                    Rp.{{ number_format($product_purchase->purchase_price, 2) }}
                                 </td>
                                 <td style="text-align:center;">{{ $product_purchase->pivot->quantity }}</td>
                                 <td style="text-align:center;">
-                                    ${{ number_format($product_purchase->pivot->quantity * $product_purchase->purchase_price, 2) }}
+                                    Rp.{{ number_format($product_purchase->pivot->quantity * $product_purchase->purchase_price, 2) }}
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="float-right text-center" style="width:12%">
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>{{ number_format($purchase->total,2) }}</strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>{{ number_format($purchase->discount,2) }}</strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>{{ number_format($purchase->total_amount,2) }}</strong>
-                            </p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>{{ number_format($purchase->paid,2) }}</strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;">
-                                <strong>{{ number_format($purchase->total_amount - $purchase->paid,2) }}</strong></p>
-                        </div>
-                    </div>
-                    <div class="float-right text-center" style="width:12%">
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>Subtotal </strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>Discount </strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>Total amount </strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>Versment </strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>Rest a payer </strong></p>
-                        </div>
-                    </div>
+                    <div class="float-right text-left" style="width:25%">
+                        <div class="too-border">
+                            <strong>
+                                Subtotal :
+                                Rp.{{ number_format($purchase->total,2) }}<br>Discount :
+                                Rp.{{ number_format($purchase->discount,2) }}
+                                <br>Total amount :
+                                Rp.{{ number_format($purchase->total_amount,2) }}<br>Payment :
+                                Rp.{{ number_format($purchase->paid,2) }}
 
+                                <br>Rest a payer :
+                                Rp.{{ number_format($purchase->total_amount - $purchase->paid,2) }}
+                            </strong>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
+
+    </div>
     </div>
     <div class="too-footer offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
         <div class="too-border text-center">
-            <p class="mb-0">{{ $activity }} {{ $store_name }} {{ $purchase->created_at }} Designed by TouwfiQ Meghlaoui
+            <p class="mb-0">{{ $store_name }} {{ $purchase->created_at }}
             </p>
         </div>
     </div>

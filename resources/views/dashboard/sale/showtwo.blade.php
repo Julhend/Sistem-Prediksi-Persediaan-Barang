@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Facture | {{ $sale->number_sale }}</title>
+    <title>Factur | {{ $sale->number_sale }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Theme style -->
@@ -186,13 +186,13 @@
             <div class="card-header p-4" style="border: 2px solid #000000;border-radius: 10px;">
                 <img src="{{ asset('/uploads/settings/'.$logo) }}" style="width:200px;" alt="" srcset="">
                 <div class="float-right text-center">
-                    <h3 class="mb-0">{{ $description }}</h3>
+                    <h3 class="mb-0">{{ $store_name }}</h3>
                     Address : {{ $address }} <br>Phone : {{ $phone }}
                 </div>
             </div>
             <div class="card-body" style="padding: 0;">
                 <div class="text-center too-border">
-                    <h4>Facture : {{ $sale->number_sale }}</h4>
+                    <h4>Number : {{ $sale->number_sale }}</h4>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-print-6 text-center">
@@ -206,10 +206,10 @@
                     </div>
                     <div class="col-md-6 col-print-6 text-center">
                         <div class="too-border">
-                            <h4>Client Information</h4>
+                            <h4>Customer Information</h4>
                         </div>
                         <div class="too-border">
-                            Client Name : {{ $client_sales->client_name }}<br>Address : {{ $client_sales->address }}
+                            Customer Name : {{ $client_sales->client_name }}<br>Address : {{ $client_sales->address }}
                             <br>Phone : {{ $client_sales->phone }}
                         </div>
                     </div>
@@ -218,11 +218,11 @@
                     <table class="table table-bordered" style="margin-bottom: 0;">
                         <thead>
                             <tr>
-                                <th style="width: 50px;">N°</th>
+                                <th style="width: 50px;">No</th>
                                 <th style="width: 500px;">Product</th>
-                                <th style="width: 100px;text-align:center;">Price unitaire</th>
-                                <th style="width: 100px;text-align:center;">Quntite</th>
                                 <th style="width: 100px;text-align:center;">Price</th>
+                                <th style="width: 100px;text-align:center;">Quantity</th>
+                                <th style="width: 100px;text-align:center;">Total Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -230,35 +230,35 @@
                             <tr>
                                 <td>{{ $i+1 }}</td>
                                 <td>{{ $product_sale->product_name }}</td>
-                                <td style="text-align:center;">${{ number_format($product_sale->sale_price, 2) }}
+                                <td style="text-align:center;">Rp.{{ number_format($product_sale->sale_price, 2) }}
                                 </td>
                                 <td style="text-align:center;">{{ $product_sale->pivot->quantity }}</td>
                                 <td style="text-align:center;">
-                                    ${{ number_format($product_sale->pivot->quantity * $product_sale->sale_price, 2) }}
+                                    Rp.{{ number_format($product_sale->pivot->quantity * $product_sale->sale_price, 2) }}
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="float-right text-center" style="width:12%">
+                    {{-- <div class="float-right text-center" style="width:12%">
                         <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
                             <p style="margin-bottom:0;"><strong>{{ number_format($sale->total,2) }}</strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>{{ number_format($sale->discount,2) }}</strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>{{ number_format($sale->total_amount,2) }}</strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>{{ number_format($sale->paid,2) }}</strong></p>
-                        </div>
-                        <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;">
-                                <strong>{{ number_format($sale->total_amount - $sale->paid,2) }}</strong></p>
-                        </div>
-                    </div>
-                    <div class="float-right text-center" style="width:12%">
+                </div>
+                <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
+                    <p style="margin-bottom:0;"><strong>{{ number_format($sale->discount,2) }}</strong></p>
+                </div>
+                <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
+                    <p style="margin-bottom:0;"><strong>{{ number_format($sale->total_amount,2) }}</strong></p>
+                </div>
+                <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
+                    <p style="margin-bottom:0;"><strong>{{ number_format($sale->paid,2) }}</strong></p>
+                </div>
+                <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
+                    <p style="margin-bottom:0;">
+                        <strong>{{ number_format($sale->total_amount - $sale->paid,2) }}</strong></p>
+                </div>
+            </div> --}}
+            {{-- <div class="float-right text-center" style="width:12%">
                         <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
                             <p style="margin-bottom:0;"><strong>Subtotal </strong></p>
                         </div>
@@ -269,21 +269,34 @@
                             <p style="margin-bottom:0;"><strong>Total amount </strong></p>
                         </div>
                         <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
-                            <p style="margin-bottom:0;"><strong>Versment </strong></p>
+                            <p style="margin-bottom:0;"><strong>Payment </strong></p>
                         </div>
                         <div style=" border: 2px solid #000000;border-radius: 10px;margin: 5px 0;">
                             <p style="margin-bottom:0;"><strong>Rest a payer </strong></p>
                         </div>
-                    </div>
+                    </div> --}}
 
+            <div class="float-right text-left" style="width:24%">
+                <div class="too-border">
+                    <strong>
+                        Subtotal : Rp.{{ number_format($sale->total,2) }}<br>Discount :
+                        Rp.{{ number_format($sale->discount,2) }}<br>Total Amount :
+                        Rp.{{ number_format($sale->total_amount,2) }}<br>Payment :
+                        Rp.{{ number_format($sale->paid,2) }}<br>Rest a
+                        Payer : Rp.{{ number_format($sale->total_amount - $sale->paid,2) }}
+                    </strong>
                 </div>
             </div>
 
+
         </div>
+    </div>
+
+    </div>
     </div>
     <div class="too-footer offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
         <div class="too-border text-center">
-            <p class="mb-0">{{ $description }} {{ $store_name }} {{ $sale->created_at }}
+            <p class="mb-0">{{ $store_name }} {{ $sale->created_at }}
             </p>
         </div>
     </div>
