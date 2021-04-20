@@ -151,6 +151,8 @@ return [
     //additional
     'close' => "Close",
     'prediksi' => "Prediksi",
+    'createprediksi' => "Data",
+    'tabdata' => "Tab Data"
 
 
 

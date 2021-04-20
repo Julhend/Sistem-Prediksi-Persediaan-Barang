@@ -252,7 +252,6 @@
                                 <br>Total amount :
                                 Rp.{{ number_format($purchase->total_amount,2) }}<br>Payment :
                                 Rp.{{ number_format($purchase->paid,2) }}
-
                                 <br>Rest a payer :
                                 Rp.{{ number_format($purchase->total_amount - $purchase->paid,2) }}
                             </strong>

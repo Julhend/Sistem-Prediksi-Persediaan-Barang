@@ -14,15 +14,15 @@
                         <h3 class="card-title">@lang('site.prediksi')</h3>
                     </div>
                     <div class="col-6 col-md-4">
-                        @if (auth()->user()->hasPermission('create_prediksi'))
+                        {{-- @if (auth()->user()->hasPermission('create_prediksi')) --}}
                         <a type="" class="btn btn-success btn float-right" style=""
                             href="{{ route('prediksi.create') }}"><i class="fas fa-user-plus"></i>
                             @lang('site.createprediksi')</a>
-                        @else
+                        {{-- @else
                         <a type="" class="btn btn-success disabled btn float-right" href="#"><i
                                 class="fas fa-user-plus"></i>
                             @lang('site.createprediksi')</a>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </form>
@@ -33,7 +33,8 @@
             <div id="prediksi_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                     <div class="col-sm-12">
-                        <table id="prediksi_table" class="table table-bordered table-striped table-hover  dataTable"
+
+                        {{-- <table id="prediksi_table" class="table table-bordered table-striped table-hover  dataTable"
                             role="grid" aria-describedby="prediksi_table_info">
                             <thead>
                                 <tr role="row">
@@ -67,64 +68,61 @@
 
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $prediksi -> prediksi_name }}</td>
-                                    <td>{{ $prediksi -> phone }}</td>
-                                    <td>{{ $prediksi -> address }}</td>
-                                    <td>{{ $prediksi ->sales->sum('due') }}</td>
-                                    <td>@if ($prediksi ->sales->count() > 0)
-                                        <a class="btn btn-primary btn-sm"
-                                            href="{{ route('prediksi.detail', $prediksi->id) }}">details of
-                                            {{ $prediksi ->sales->count() }} sales</i></a>
-                                        @else
-                                        <a class="btn btn-primary btn-sm disabled"
-                                            href="{{ route('prediksi.edit', $prediksi->id) }}">details of
-                                            {{ $prediksi ->sales->count() }} sales</i></a>
-                                        @endif</td>
-                                    <td>
-                                        @if (auth()->user()->hasPermission('update_prediksi') && $prediksi->id != 1)
-                                        <a class="btn btn-warning btn-sm"
-                                            href="{{ route('prediksi.edit', $prediksi->id) }}"><i
-                                                class="fas fa-edit"></i>
-                                            @lang('site.edit')</a>
-                                        @else
-                                        <a class="btn btn-warning btn-sm disabled"
-                                            href="{{ route('prediksi.edit', $prediksi->id) }}"><i
-                                                class="fas fa-edit"></i>
-                                            @lang('site.edit')</a>
-                                        @endif
-                                        @if (auth()->user()->hasPermission('delete_prediksi') && $prediksi->id != 1)
-                                        <button id="delete" onclick="deletemoderator({{ $prediksi->id }})"
-                                            class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                                            @lang('site.delete')</button>
-                                        <form id="form-delete-{{ $prediksi->id }}"
-                                            action="{{ route('prediksi.destroy', $prediksi->id) }}" method="post"
-                                            style="display:inline-block;">
-                                            {{ csrf_field() }}
-                                            {{ method_field('delete') }}
-                                        </form>
-                                        @else
-                                        <button type="submit" class="btn btn-danger btn-sm disabled"><i
-                                                class="fas fa-trash"></i>
-                                            @lang('site.delete')</button>
-                                        @endif
+                        <td>{{ $prediksi -> prediksi_name }}</td>
+                        <td>{{ $prediksi -> phone }}</td>
+                        <td>{{ $prediksi -> address }}</td>
+                        <td>{{ $prediksi ->sales->sum('due') }}</td>
+                        <td>@if ($prediksi ->sales->count() > 0)
+                            <a class="btn btn-primary btn-sm"
+                                href="{{ route('prediksi.detail', $prediksi->id) }}">details of
+                                {{ $prediksi ->sales->count() }} sales</i></a>
+                            @else
+                            <a class="btn btn-primary btn-sm disabled"
+                                href="{{ route('prediksi.edit', $prediksi->id) }}">details of
+                                {{ $prediksi ->sales->count() }} sales</i></a>
+                            @endif</td>
+                        <td>
+                            @if (auth()->user()->hasPermission('update_prediksi') && $prediksi->id != 1)
+                            <a class="btn btn-warning btn-sm" href="{{ route('prediksi.edit', $prediksi->id) }}"><i
+                                    class="fas fa-edit"></i>
+                                @lang('site.edit')</a>
+                            @else
+                            <a class="btn btn-warning btn-sm disabled"
+                                href="{{ route('prediksi.edit', $prediksi->id) }}"><i class="fas fa-edit"></i>
+                                @lang('site.edit')</a>
+                            @endif
+                            @if (auth()->user()->hasPermission('delete_prediksi') && $prediksi->id != 1)
+                            <button id="delete" onclick="deletemoderator({{ $prediksi->id }})"
+                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
+                                @lang('site.delete')</button>
+                            <form id="form-delete-{{ $prediksi->id }}"
+                                action="{{ route('prediksi.destroy', $prediksi->id) }}" method="post"
+                                style="display:inline-block;">
+                                {{ csrf_field() }}
+                                {{ method_field('delete') }}
+                            </form>
+                            @else
+                            <button type="submit" class="btn btn-danger btn-sm disabled"><i class="fas fa-trash"></i>
+                                @lang('site.delete')</button>
+                            @endif
 
-                                    </td>
+                        </td>
 
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">No</th>
-                                    <th rowspan="1" colspan="1">@lang('site.prediksiname')</th>
-                                    <th rowspan="1" colspan="1">@lang('site.phone')</th>
-                                    <th rowspan="1" colspan="1">@lang('site.address')</th>
-                                    <th rowspan="1" colspan="1">dues sales</th>
-                                    <th rowspan="1" colspan="1">details sales</th>
-                                    <th rowspan="1" colspan="1">@lang('site.action')</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th rowspan="1" colspan="1">No</th>
+                                <th rowspan="1" colspan="1">@lang('site.prediksiname')</th>
+                                <th rowspan="1" colspan="1">@lang('site.phone')</th>
+                                <th rowspan="1" colspan="1">@lang('site.address')</th>
+                                <th rowspan="1" colspan="1">dues sales</th>
+                                <th rowspan="1" colspan="1">details sales</th>
+                                <th rowspan="1" colspan="1">@lang('site.action')</th>
+                            </tr>
+                        </tfoot>
+                        </table> --}}
                     </div>
                 </div>
             </div>

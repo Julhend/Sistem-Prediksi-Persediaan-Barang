@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Prediction;
+use App\Sale;
+use App\Client;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PredictionController extends Controller
 {
@@ -12,11 +14,27 @@ class PredictionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+       
+
+        return view('dashboard.prediksi.index');
     }
 
+
+    public function saledetail($id)
+    {
+        //$allclients = Client::all();
+        $client = Client::find($id);
+        // $sales = Sale::all();
+        // foreach ($allclients as $key => $value) {
+        //     dd($value->sales->sum('due'));
+        // }
+        //dd($client->sales);
+
+
+        return view('dashboard.client.saledetail', compact('client'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +42,7 @@ class PredictionController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.prediksi.create');
     }
 
     /**
@@ -35,16 +53,26 @@ class PredictionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'client_name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+
+        ]);
+        Client::create($request->all());
+        toast('Client created Successfully', 'success', 'top-right');
+        if (!$request->ajax()) {
+            return redirect()->route('client.index');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Prediction  $prediction
+     * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show(Prediction $prediction)
+    public function show(Client $client)
     {
         //
     }
@@ -52,34 +80,44 @@ class PredictionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Prediction  $prediction
+     * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prediction $prediction)
+    public function edit(Client $client)
     {
-        //
+        return view('dashboard.client.edit', compact('client'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Prediction  $prediction
+     * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prediction $prediction)
+    public function update(Request $request, Client $client)
     {
-        //
+        $request->validate([
+            'client_name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+
+        ]);
+        $client->update($request->all());
+        toast('Client Updated Successfully', 'success', 'top-right');
+        return redirect()->route('client.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Prediction  $prediction
+     * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prediction $prediction)
+    public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        toast('Client deleted Successfully', 'error', 'top-right');
+        return redirect()->route('client.index');
     }
 }

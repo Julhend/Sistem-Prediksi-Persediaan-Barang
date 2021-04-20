@@ -55,10 +55,10 @@ Route::group(
             Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
 
             // test for predict
-            Route::resource('/prediksi', 'Dashboard\ClientController')->except([
+            Route::resource('/prediksi', 'Dashboard\PredictionController')->except([
                 'show'
             ]);
-           // Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
+        //    Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
             //--------------
 
             Route::resource('/provider', 'Dashboard\ProviderController')->except([
