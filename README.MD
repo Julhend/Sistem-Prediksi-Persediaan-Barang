@@ -43,3 +43,8 @@ php artisan key:generate --> generate app key
 
 php artisan serve --> run program on localhost (http://127.0.0.1:8000/)
 ```
+
+```
+Username/email : admin@admin.com
+password : admin
+```
