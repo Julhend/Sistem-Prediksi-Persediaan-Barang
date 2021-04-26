@@ -152,7 +152,16 @@ return [
     'close' => "Close",
     'prediksi' => "Prediksi",
     'createprediksi' => "Data",
-    'tabdata' => "Tab Data"
+    'tabdata' => "Tab Data",
+    'ok' => "Submit",
+    'dari' => "Dari",
+    'sampai' => "Sampai",
+    'datepurchase' => "Purchase Date",
+    'qty' => "Quantity",
+    'datesale' => "Sale Date",
+    'saleprice' => "Sale Price",
+    'datakeluar' => "Product Keluar",
+      'datamasuk' => "Product Masuk",
 
 
 

@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Sale;
-use App\Client;
+
+use App\Product;
+use App\Category;
+use App\Provider;
+use App\Purchase;
+use App\ProductPurchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Response;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
+
+
 
 class PredictionController extends Controller
 {
@@ -16,108 +26,49 @@ class PredictionController extends Controller
      */
     public function index(Request $request)
     {
-       
-
         return view('dashboard.prediksi.index');
     }
 
-
-    public function saledetail($id)
-    {
-        //$allclients = Client::all();
-        $client = Client::find($id);
-        // $sales = Sale::all();
-        // foreach ($allclients as $key => $value) {
-        //     dd($value->sales->sum('due'));
-        // }
-        //dd($client->sales);
-
-
-        return view('dashboard.client.saledetail', compact('client'));
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('dashboard.prediksi.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'client_name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-
-        ]);
-        Client::create($request->all());
-        toast('Client created Successfully', 'success', 'top-right');
-        if (!$request->ajax()) {
-            return redirect()->route('client.index');
-        }
+    public function productKeluar(){
+        return view('dashboard.prediksi.productKeluar');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Purchase  $purchas  e
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
-    {
-        //
+    public function productMasuk(Request $request){
+    
+        $product_purchases = Product::with('purchases')->get();
+        // $product_purchases = $purchase->products;
+        $provider_purchases = $request->provider;
+
+// TagCategory::whereIn('id', $chosenCategoriesIds)->with(['tags'])->get();
+
+// dd($product_purchases->product_name);
+
+        
+
+
+        //  $product_purchases =\DB::table('product_purchase')
+        //  ->leftJoin('products', 'product_purchase.purchase_id', '=', 'products.id') 
+        //  ->join('purchases','product_purchase.purchase_id','=','purchases.id')
+        //  ->get();
+
+        // $product_purchases = ProductPurchase::whereBetwen('created_at',[$tglawal, $tglakhir])->get();
+    
+        // $purchases = Purchase::when($purchase->search, function ($q) use ($purchase) {
+        //     return $q->where('product_name', 'like', '%' . $purchase->search . '%');
+        // })->latest()->paginate(10);
+        // return view('dashboard.prediksi.productMasuk', compact('product_purchases','provider_purchases','request','tglawal','tglakhir'));
+    
+        return view('dashboard.prediksi.productMasuk', compact('product_purchases','provider_purchases','request'));
+    
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
-    {
-        return view('dashboard.client.edit', compact('client'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Client $client)
-    {
-        $request->validate([
-            'client_name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-
-        ]);
-        $client->update($request->all());
-        toast('Client Updated Successfully', 'success', 'top-right');
-        return redirect()->route('client.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Client $client)
-    {
-        $client->delete();
-        toast('Client deleted Successfully', 'error', 'top-right');
-        return redirect()->route('client.index');
+    public function productMasukPerTanggal($tglawal, $tglakhir){
+        
     }
 }

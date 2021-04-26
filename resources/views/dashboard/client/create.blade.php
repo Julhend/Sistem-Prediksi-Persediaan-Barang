@@ -38,35 +38,17 @@
                                 class="form-control">{{ old('description') }}</textarea>
                         </div>
                     </div>
-                    {{-- <div class="col-md-6">
-                        <div class="form-group">
-                            <label>@lang('site.numeroregistrecommerce')</label>
-                            <input type="text" name="rc" id="" class="form-control" value="{{ old('rc') }}">
                 </div>
-                <div class="form-group">
-                    <label>@lang('site.numeroarticle')</label>
-                    <input type="number" name="article" id="" class="form-control" value="{{ old('article') }}">
+                <div class="modal-footer form-group">
+                    <button type="submit" class="btn btn-success" href="{{ route('client.store') }}"><i
+                            class="fas fa-user-plus"></i> @lang('site.createclient')</button>
                 </div>
-                <div class="form-group">
-                    <label>@lang('site.nif')</label>
-                    <input type="number" name="nif" id="" class="form-control" value="{{ old('nif') }}">
-                </div>
-                <div class="form-group">
-                    <label>@lang('site.nis')</label>
-                    <input type="number" name="nis" id="" class="form-control" value="{{ old('nis') }}">
-                </div>
-        </div> --}}
-    </div>
-    <div class="modal-footer form-group">
-        <button type="submit" class="btn btn-success" href="{{ route('client.store') }}"><i
-                class="fas fa-user-plus"></i> @lang('site.createclient')</button>
-    </div>
-    </form>
+            </form>
 
-</div>
-<!-- /.card-body -->
+        </div>
+        <!-- /.card-body -->
 
-</div>
+    </div>
 </div>
 
 

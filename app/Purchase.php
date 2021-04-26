@@ -13,12 +13,16 @@ class Purchase extends Model
         'quantity' => 'array',
     ];
 
+    // protected $fillable = ['product_name'];
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);
     }
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_purchase', 'purchase_id', 'product_id')->withPivot('quantity');
+        return $this->belongsToMany(Product::class, 'product_purchase', 'purchase_id', 'product_id')
+        ->withPivot('quantity')
+        ->withTimestamps();
     }
 }

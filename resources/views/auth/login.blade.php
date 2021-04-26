@@ -52,7 +52,7 @@
 
             {{-- <img class="pb-5" src="{{ asset('/uploads/settings/logo-stti.png') }}" style="width:150px;"
             alt="logo"> --}}
-            <h2>Welcome To Sistem Prediksi Persediaan Barang</h2>
+            <h2>Sistem Prediksi Persediaan Barang Toko Harapan Baru</h2>
             <br>
             @include('partials._errors')
             <form action="{{ route('login') }}" method="post">

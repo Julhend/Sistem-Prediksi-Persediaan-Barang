@@ -228,9 +228,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($product_purchases as $product_purchase )
+                            @foreach ($product_purchases as $index => $product_purchase )
                             <tr>
-                                <td>{{ $i+1 }}</td>
+                                <td>{{ $index+1 }}</td>
                                 <td>{{ $product_purchase->product_name }}</td>
                                 <td style="text-align:center;">
                                     Rp.{{ number_format($product_purchase->purchase_price, 2) }}

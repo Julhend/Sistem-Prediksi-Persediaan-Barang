@@ -5,6 +5,7 @@ namespace App;
 use App\Sale;
 use App\Category;
 use App\Purchase;
+use App\ProductPurchase;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -25,6 +26,7 @@ class Product extends Model
     {
         return $this->belongsToMany(Purchase::class, 'product_purchase', 'product_id', 'purchase_id');
     }
+
     public function getImagePathAttribute()
     {
         return asset('uploads/product_images/' . $this->image);

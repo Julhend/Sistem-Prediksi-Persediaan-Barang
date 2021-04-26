@@ -54,15 +54,17 @@ Route::group(
             ]);
             Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
 
-            // test for predict
+            // predict------------------------------
             Route::resource('/prediksi', 'Dashboard\PredictionController')->except([
-                'show'
+                'show','create'
             ]);
-        //    Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
-            //--------------
+            Route::get('/product-keluar', 'Dashboard\PredictionController@productKeluar')->name('prediksi.productKeluar');
+            Route::get('/product-masuk', 'Dashboard\PredictionController@productMasuk')->name('prediksi.productMasuk');
+            // Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
+            //------------------------------------------
 
             Route::resource('/provider', 'Dashboard\ProviderController')->except([
-                'show'
+                'show', 
             ]);
             Route::get('/provider/detail/{id}', 'Dashboard\ProviderController@purchasedetail')->name('provider.detail');
 

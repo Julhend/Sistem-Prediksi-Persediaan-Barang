@@ -14,15 +14,14 @@
                         <h3 class="card-title">@lang('site.prediksi')</h3>
                     </div>
                     <div class="col-6 col-md-4">
-                        {{-- @if (auth()->user()->hasPermission('create_prediksi')) --}}
+                        <a type="" class="btn btn-success btn float-left" style=""
+                            href="{{ route('prediksi.productMasuk') }}"><i class="fas fa-file-alt"></i>
+                            @lang('site.datamasuk')</a>
+
                         <a type="" class="btn btn-success btn float-right" style=""
-                            href="{{ route('prediksi.create') }}"><i class="fas fa-user-plus"></i>
-                            @lang('site.createprediksi')</a>
-                        {{-- @else
-                        <a type="" class="btn btn-success disabled btn float-right" href="#"><i
-                                class="fas fa-user-plus"></i>
-                            @lang('site.createprediksi')</a>
-                        @endif --}}
+                            href="{{ route('prediksi.productKeluar') }}"><i class="fas fa-clipboard-list"></i>
+                            @lang('site.datakeluar')</a>
+
                     </div>
                 </div>
             </form>
@@ -33,104 +32,163 @@
             <div id="prediksi_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                     <div class="col-sm-12">
+                        <form action="{{ route('client.store') }}" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('post') }}
+                            @include('partials._errors')
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label>Wajib Di Input</label>
+                                    <div class="form-group">
+                                        <input type="text" name="input_permintaan" id="" class="form-control"
+                                            placeholder="permintaan" value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="input_persediaan" id="" class="form-control"
+                                            placeholder="persediaan" value="{{ old('phone') }}">
+                                    </div>
+                                </div>
 
-                        {{-- <table id="prediksi_table" class="table table-bordered table-striped table-hover  dataTable"
-                            role="grid" aria-describedby="prediksi_table_info">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="prediksi_table" rowspan="1"
-                                        colspan="1" aria-sort="ascending"
-                                        aria-label="Rendering engine: activate to sort column descending"
-                                        style="width: 283px;">No</th>
-                                    <th class="sorting" tabindex="0" aria-controls="prediksi_table" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending"
-                                        style="width: 359px;">@lang('site.prediksiname')</th>
-                                    <th class="sorting" tabindex="0" aria-controls="prediksi_table" rowspan="1"
-                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                        style="width: 250px;">@lang('site.phone')</th>
-                                    <th class="sorting" tabindex="0" aria-controls="prediksi_table" rowspan="1"
-                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                        style="width: 250px;">@lang('site.address')</th>
-                                    <th class="sorting" tabindex="0" aria-controls="prediksi_table" rowspan="1"
-                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                        style="width: 250px;">dues Sales</th>
-                                    <th class="sorting" tabindex="0" aria-controls="prediksi_table" rowspan="1"
-                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                        style="width: 250px;">details Sales</th>
-                                    <th class="sorting" tabindex="0" aria-controls="prediksi_table" rowspan="1"
-                                        colspan="1" aria-label="Engine version: activate to sort column ascending"
-                                        style="width: 243px;">@lang('site.action')</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                                <div class="modal-footer form-group">
+                                    <button type="submit" class="btn btn-success float-right"
+                                        href="{{ route('client.store') }}"><i class="fas fa-caret-right"></i>
+                                        Proses</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nilai Tertinggi</label>
+                                        <input disabled type="text" name="nilai_tertinggi" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Permintaan</label>
+                                        <input disabled type="text" name="permintaan_tertinggi" id=""
+                                            class="form-control" value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Persediaan</label>
+                                        <input disabled type="text" name="persediaan_tertinggi" id=""
+                                            class="form-control" value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Target Penjualan</label>
+                                        <input disabled type="text" name="target_tertinggi" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nilai Terendah</label>
+                                        <input disabled type="text" name="nilai_terendah" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Permintaan</label>
+                                        <input disabled type="text" name="permintaan_terendah" id=""
+                                            class="form-control" value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Persediaan</label>
+                                        <input disabled type="text" name="persediaan_terendah" id=""
+                                            class="form-control" value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Target Penjualan</label>
+                                        <input disabled type="text" name="target_terendah" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                </div>
 
-                                @foreach ($prediksi as $index => $prediksi)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Permintaan</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sedikit</label>
+                                        <input disabled type="text" name="sedikit" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Banyak</label>
+                                        <input disabled type="text" name="banyak" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Penjualan</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Turun</label>
+                                        <input disabled type="text" name="turun" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Naik</label>
+                                        <input disabled type="text" name="naik" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                </div>
 
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                        <td>{{ $prediksi -> prediksi_name }}</td>
-                        <td>{{ $prediksi -> phone }}</td>
-                        <td>{{ $prediksi -> address }}</td>
-                        <td>{{ $prediksi ->sales->sum('due') }}</td>
-                        <td>@if ($prediksi ->sales->count() > 0)
-                            <a class="btn btn-primary btn-sm"
-                                href="{{ route('prediksi.detail', $prediksi->id) }}">details of
-                                {{ $prediksi ->sales->count() }} sales</i></a>
-                            @else
-                            <a class="btn btn-primary btn-sm disabled"
-                                href="{{ route('prediksi.edit', $prediksi->id) }}">details of
-                                {{ $prediksi ->sales->count() }} sales</i></a>
-                            @endif</td>
-                        <td>
-                            @if (auth()->user()->hasPermission('update_prediksi') && $prediksi->id != 1)
-                            <a class="btn btn-warning btn-sm" href="{{ route('prediksi.edit', $prediksi->id) }}"><i
-                                    class="fas fa-edit"></i>
-                                @lang('site.edit')</a>
-                            @else
-                            <a class="btn btn-warning btn-sm disabled"
-                                href="{{ route('prediksi.edit', $prediksi->id) }}"><i class="fas fa-edit"></i>
-                                @lang('site.edit')</a>
-                            @endif
-                            @if (auth()->user()->hasPermission('delete_prediksi') && $prediksi->id != 1)
-                            <button id="delete" onclick="deletemoderator({{ $prediksi->id }})"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                                @lang('site.delete')</button>
-                            <form id="form-delete-{{ $prediksi->id }}"
-                                action="{{ route('prediksi.destroy', $prediksi->id) }}" method="post"
-                                style="display:inline-block;">
-                                {{ csrf_field() }}
-                                {{ method_field('delete') }}
-                            </form>
-                            @else
-                            <button type="submit" class="btn btn-danger btn-sm disabled"><i class="fas fa-trash"></i>
-                                @lang('site.delete')</button>
-                            @endif
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Hasil Rules</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rules 1</label>
+                                        <input disabled type="text" name="rules_pertama" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rules 2</label>
+                                        <input disabled type="text" name="rules_kedua" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rules 3</label>
+                                        <input disabled type="text" name="rules_ketiga" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rules 4</label>
+                                        <input disabled type="text" name="rules_keempat" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                </div>
 
-                        </td>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Defuzifikasi</label>
+                                        <input disabled type="text" name="defuzifikasi" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Kesimpulan</label>
+                                        <input disabled type="text" name="kesimpulan" id="" class="form-control"
+                                            value="{{ old('client_name') }}">
+                                        {{-- <textarea id="kesimpulan" name="kesimpulan"></textarea> --}}
+                                    </div>
+                                    <div class="modal-footer form-group">
+                                        <button type="submit" class="btn btn-success float-right"
+                                            href="{{ route('client.store') }}"><i class="fas fa-print"></i>
+                                            Cetak</button>
+                                    </div>
+                                </div>
 
-                        </tr>
-                        @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th rowspan="1" colspan="1">No</th>
-                                <th rowspan="1" colspan="1">@lang('site.prediksiname')</th>
-                                <th rowspan="1" colspan="1">@lang('site.phone')</th>
-                                <th rowspan="1" colspan="1">@lang('site.address')</th>
-                                <th rowspan="1" colspan="1">dues sales</th>
-                                <th rowspan="1" colspan="1">details sales</th>
-                                <th rowspan="1" colspan="1">@lang('site.action')</th>
-                            </tr>
-                        </tfoot>
-                        </table> --}}
+
+                            </div>
+
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- /.card-body -->
-
 
     </div>
+    <!-- /.card-body -->
+
+
+</div>
 </div>
 
 
