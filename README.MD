@@ -16,10 +16,14 @@ Install Composer
 [Download Composer](https://getcomposer.org/download/)
 
 
-composer update/install 
+run on your terminal to download package / dependencies 
 
 ```
 composer install
+
+or
+
+composer update
 ```
 
 ```
