@@ -32,43 +32,22 @@ class PredictionController extends Controller
     public function productKeluar(){
         return view('dashboard.prediksi.productKeluar');
     }
+    public function masuk(Request $request){
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Purchase  $purchas  e
-     * @return \Illuminate\Http\Response
-     */
-    public function productMasuk(Request $request){
-    
-        $product_purchases = Product::with('purchases')->get();
-        // $product_purchases = $purchase->products;
-        $provider_purchases = $request->provider;
+// product_purchases = Purchase::with('products')->get()->toArray();
+//         foreach ($product_purchases as $product) {
 
-// TagCategory::whereIn('id', $chosenCategoriesIds)->with(['tags'])->get();
+//   dd($product);
+//         }
 
-// dd($product_purchases->product_name);
+     $products = Product::all();
+     $purchase =\DB::table('product_purchase')
+            ->where('product_id',$request->product_id)
+            ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
+            ->get();
+// ->whereBetween('created_at', ['2021-01-26','2021-05-26'])
+        return view('dashboard.prediksi.productMasuk', compact('products','purchase'));
 
-        
-
-
-        //  $product_purchases =\DB::table('product_purchase')
-        //  ->leftJoin('products', 'product_purchase.purchase_id', '=', 'products.id') 
-        //  ->join('purchases','product_purchase.purchase_id','=','purchases.id')
-        //  ->get();
-
-        // $product_purchases = ProductPurchase::whereBetwen('created_at',[$tglawal, $tglakhir])->get();
-    
-        // $purchases = Purchase::when($purchase->search, function ($q) use ($purchase) {
-        //     return $q->where('product_name', 'like', '%' . $purchase->search . '%');
-        // })->latest()->paginate(10);
-        // return view('dashboard.prediksi.productMasuk', compact('product_purchases','provider_purchases','request','tglawal','tglakhir'));
-    
-        return view('dashboard.prediksi.productMasuk', compact('product_purchases','provider_purchases','request'));
-    
     }
 
-    public function productMasukPerTanggal($tglawal, $tglakhir){
-        
-    }
 }

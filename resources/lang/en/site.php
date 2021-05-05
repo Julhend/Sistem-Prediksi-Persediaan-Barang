@@ -162,6 +162,7 @@ return [
     'saleprice' => "Sale Price",
     'datakeluar' => "Product Keluar",
       'datamasuk' => "Product Masuk",
+      'product' => "Cari Product"
 
 
 

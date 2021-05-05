@@ -24,7 +24,9 @@ class Product extends Model
     }
     public function purchases()
     {
-        return $this->belongsToMany(Purchase::class, 'product_purchase', 'product_id', 'purchase_id');
+        return $this->belongsToMany(Purchase::class, 'product_purchase', 'product_id', 'purchase_id')
+        ->withPivot('quantity')
+        ->withTimestamps();
     }
 
     public function getImagePathAttribute()

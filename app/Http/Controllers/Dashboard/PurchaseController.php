@@ -94,6 +94,8 @@ class PurchaseController extends Controller
             'provider_id' => $data['provider_id'],
 
         ]);
+
+        //product_name , purchase_price
         $dat = $data['product'];
         $qty = $request->get('quantity');
         //attach sale with there products and quantities

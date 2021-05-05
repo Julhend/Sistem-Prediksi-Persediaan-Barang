@@ -59,7 +59,7 @@ Route::group(
                 'show','create'
             ]);
             Route::get('/product-keluar', 'Dashboard\PredictionController@productKeluar')->name('prediksi.productKeluar');
-            Route::get('/product-masuk', 'Dashboard\PredictionController@productMasuk')->name('prediksi.productMasuk');
+            Route::get('/product-masuk', 'Dashboard\PredictionController@masuk')->name('prediksi.masuk');
             // Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
             //------------------------------------------
 

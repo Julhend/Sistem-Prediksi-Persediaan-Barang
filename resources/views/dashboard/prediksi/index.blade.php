@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-6 col-md-4">
                         <a type="" class="btn btn-success btn float-left" style=""
-                            href="{{ route('prediksi.productMasuk') }}"><i class="fas fa-file-alt"></i>
+                            href="{{ route('prediksi.masuk') }}"><i class="fas fa-file-alt"></i>
                             @lang('site.datamasuk')</a>
 
                         <a type="" class="btn btn-success btn float-right" style=""
