@@ -49,7 +49,7 @@ class PredictionController extends Controller
 
 
 
- public function keluar(Request $request){
+ public function productKeluar(Request $request){
 
     // product_purchases = Purchase::with('products')->get()->toArray();
     //         foreach ($product_purchases as $product) {
@@ -63,7 +63,7 @@ class PredictionController extends Controller
             ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
             ->get();
         // return view('dashboard.prediksi.productMasuk'
-    return view('dashboard.prediksi.productKeluar', compact('products','purchase'));
+    return view('dashboard.prediksi.productKeluar', compact('products','sale'));
     }
 
 }
