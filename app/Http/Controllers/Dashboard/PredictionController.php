@@ -50,19 +50,11 @@ class PredictionController extends Controller
 
 
  public function productKeluar(Request $request){
-
-    // product_purchases = Purchase::with('products')->get()->toArray();
-    //         foreach ($product_purchases as $product) {
-
-    //   dd($product);
-    //         }
-
      $products = Product::all();
      $sale =\DB::table('product_sale')
             ->where('product_id',$request->product_id)
             ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
             ->get();
-        // return view('dashboard.prediksi.productMasuk'
     return view('dashboard.prediksi.productKeluar', compact('products','sale'));
     }
 
