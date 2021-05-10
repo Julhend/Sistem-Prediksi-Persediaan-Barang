@@ -56,44 +56,40 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Nilai Tertinggi</label>
-                                        <input disabled type="text" name="nilai_tertinggi" id="" class="form-control"
-                                            value="{{ old('client_name') }}">
+                                        <label>✧✧✧✧Nilai Tertinggi✧✧✧✧</label>
                                     </div>
                                     <div class="form-group">
-                                        <label>Permintaan</label>
+                                        <label>Permintaan | Sales </label>
                                         <input disabled type="text" name="permintaan_tertinggi" id=""
-                                            class="form-control" value="{{ old('client_name') }}">
+                                            class="form-control" value="{{ old('permintaan') }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Persediaan</label>
+                                        <label>Persediaan | Stocks </label>
                                         <input disabled type="text" name="persediaan_tertinggi" id=""
-                                            class="form-control" value="{{ old('client_name') }}">
+                                            class="form-control" value="{{ old('persediaan') }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Target Penjualan</label>
+                                        <label>Pembelian | Purchases </label>
                                         <input disabled type="text" name="target_tertinggi" id="" class="form-control"
-                                            value="{{ old('client_name') }}">
+                                            value="{{ old('pembelian') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Nilai Terendah</label>
-                                        <input disabled type="text" name="nilai_terendah" id="" class="form-control"
-                                            value="{{ old('client_name') }}">
+                                        <label>✧✧✧✧Nilai Terendah✧✧✧✧</label>
                                     </div>
                                     <div class="form-group">
-                                        <label>Permintaan</label>
+                                        <label>Permintaan | Sales</label>
                                         <input disabled type="text" name="permintaan_terendah" id=""
                                             class="form-control" value="{{ old('client_name') }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Persediaan</label>
+                                        <label>Persediaan | Stocks</label>
                                         <input disabled type="text" name="persediaan_terendah" id=""
                                             class="form-control" value="{{ old('client_name') }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Target Penjualan</label>
+                                        <label>Pembelian | Purhcases</label>
                                         <input disabled type="text" name="target_terendah" id="" class="form-control"
                                             value="{{ old('client_name') }}">
                                     </div>
@@ -101,7 +97,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Permintaan</label>
+                                        <label>✧✧✧✧Permintaan✧✧✧✧</label>
                                     </div>
                                     <div class="form-group">
                                         <label>Sedikit</label>
@@ -116,7 +112,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Penjualan</label>
+                                        <label>✧✧✧✧Penjualan✧✧✧✧</label>
                                     </div>
                                     <div class="form-group">
                                         <label>Turun</label>
@@ -132,7 +128,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Hasil Rules</label>
+                                        <label>✧✧✧✧Hasil Rules✧✧✧✧</label>
                                     </div>
                                     <div class="form-group">
                                         <label>Rules 1</label>
@@ -158,12 +154,12 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Defuzifikasi</label>
+                                        <label>✧✧✧✧Defuzifikasi✧✧✧✧</label>
                                         <input disabled type="text" name="defuzifikasi" id="" class="form-control"
                                             value="{{ old('client_name') }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Kesimpulan</label>
+                                        <label>✧✧✧✧Kesimpulan✧✧✧✧</label>
                                         <input disabled type="text" name="kesimpulan" id="" class="form-control"
                                             value="{{ old('client_name') }}">
                                         {{-- <textarea id="kesimpulan" name="kesimpulan"></textarea> --}}
