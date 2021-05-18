@@ -38,21 +38,21 @@
 
 <body>
 
-    {{-- <div class="row no-gutters">
-        <div class="col-md-6">
-            <img class="image" src="{{ asset('/uploads/settings/pexels-photo-2341290.jpeg') }}" alt="">
+    {{-- <div class="row no-gutters"> --}}
+    {{-- <div class="col-md-5">
+            <img class="image" src="{{ asset('/uploads/settings/informatique.jpg') }}" alt="">
     </div> --}}
 
     {{-- <div>
-        <img class="pb-5" src="{{ asset('/uploads/settings/logo-stti.png') }}" style="width:150px;" alt="logo">
+            <img class="pb-5" src="{{ asset('/uploads/settings/logo-stti.png') }}" style="width:150px;" alt="logo">
     </div> --}}
 
-    <div class="col-md-6 login mx-auto my-auto">
+    <div class="col-md-4 login mx-auto my-auto">
         <div class="login-body">
 
-            {{-- <img class="pb-5" src="{{ asset('/uploads/settings/logo-stti.png') }}" style="width:150px;"
-            alt="logo"> --}}
-            <h2>Sistem Prediksi Persediaan Barang Toko Harapan Baru</h2>
+            {{-- <img class="pb-5" src="{{ asset('/uploads/settings/logo-stti.png') }}" style="width:150px;" alt="logo">
+            --}}
+            <h2>Sistem Prediksi Persediaan Barang</h2>
             <br>
             @include('partials._errors')
             <form action="{{ route('login') }}" method="post">

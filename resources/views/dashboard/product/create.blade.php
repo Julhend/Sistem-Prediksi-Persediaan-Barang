@@ -36,8 +36,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <input type="text" name="codebar" id="barcode" class="form-control" value=""
-                                        placeholder="Scan with Barcode scanner or Click to Generate
-                                Barcode">
+                                        placeholder="Click to Generate Barcode">
                                 </div>
                                 <div class="col-md-6">
                                     <button id="barcodebutton" type="button" class="btn btn-success">Generate
