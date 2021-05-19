@@ -145,41 +145,6 @@
                                     value="{{ old('client_name') }}">
                             </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>✧✧✧✧Permintaan✧✧✧✧</label>
-                            </div>
-                            <div class="form-group">
-                                <label>Sedikit</label>
-                                <input readonly type="number" name="sedikit" id="" class="form-control"
-                                    value="{{ old('client_name') }}">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Banyak</label>
-                                <input readonly type="number" name="banyak" id="" class="form-control"
-                                    value="{{ old('client_name') }}">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>✧✧✧✧Penjualan✧✧✧✧</label>
-                            </div>
-                            <div class="form-group">
-                                <label>Turun</label>
-                                <input readonly type="number" name="turun" id="" class="form-control"
-                                    value="{{ old('client_name') }}">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Naik</label>
-                                <input readonly type="number" name="naik" id="" class="form-control"
-                                    value="{{ old('client_name') }}">
-
-                            </div>
-                        </div>
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>✧✧✧✧Hasil Rules✧✧✧✧</label>
