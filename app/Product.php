@@ -6,6 +6,7 @@ use App\Sale;
 use App\Category;
 use App\Purchase;
 use App\ProductPurchase;
+use App\Prediction;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -39,5 +40,9 @@ class Product extends Model
     {
         $profit = $this->sale_price - $this->purchase_price;
         return $profit;
+    }
+     public function predict()
+    {
+        return $this->hasMany(Prediction::class);
     }
 }

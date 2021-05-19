@@ -82,59 +82,59 @@ class PredictionController extends Controller
 
 
         $maxsale =  \DB::table('product_sale')
-        ->where('product_id',2)
-        ->whereBetween('created_at', ['2021-04-04','2021-06-08'])
+        ->where('product_id',$request->product_id)
+        ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->max('quantity');
 
         $maxpurchase =  \DB::table('product_purchase')
-        ->where('product_id',2)
-         ->whereBetween('created_at', ['2021-04-04','2021-06-08'])
+        ->where('product_id',$request->product_id)
+        ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->max('quantity');
         $maxstock =  \DB::table('products')
-        ->where('id',2)
+        ->where('id',$request->product_id)
         ->max('stock');
 
 
         $minsale =  \DB::table('product_sale')
-        ->where('product_id',2)
-          ->whereBetween('created_at', ['2021-04-04','2021-06-08'])
+       ->where('product_id',$request->product_id)
+        ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->min('quantity');
         $minpurchase =  \DB::table('product_purchase')
-        ->where('product_id',2)
-         ->whereBetween('created_at', ['2021-04-04','2021-06-08'])
+        ->where('product_id',$request->product_id)
+        ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->min('quantity');
         $minstock =  \DB::table('products')
-        ->where('id',2)
-        ->min('stock');
+        ->where('id',$request->product_id)
+        ->min('min_stock');
  
 
-        //mencari nilai permintaan rendah
-        $pmt1 = $maxsale - 1800;
-        $pmt2 = $maxsale - $minsale;
-        $pmtrendah = $pmt1 / $pmt2;
+        // //mencari nilai permintaan rendah
+        // $pmt1 = $maxsale - 1800;
+        // $pmt2 = $maxsale - $minsale;
+        // $pmtrendah = $pmt1 / $pmt2;
         
-        //mencari nilai permintaan tinggi
-        $pmt3 = 1800 - $minsale;
-        $pmt4 = $maxsale - $minsale;
-        $pmttinggi = $pmt3 / $pmt4;
+        // //mencari nilai permintaan tinggi
+        // $pmt3 = 1800 - $minsale;
+        // $pmt4 = $maxsale - $minsale;
+        // $pmttinggi = $pmt3 / $pmt4;
 
-        //mencari nilai persediaan sedikit
-        $psd1 = $maxstock - 140;
-        $psd2 = $maxstock - $minstock;
-        $psdrendah = $psd1 / $psd2;
-        //mencari nilai persediaan banyak
-        $psd3 = 140 - $minstock;
-        $psd4 = $maxstock - $minstock;
-        $psdtinggi = $psd3 / $psd4;
+        // //mencari nilai persediaan sedikit
+        // $psd1 = $maxstock - 140;
+        // $psd2 = $maxstock - $minstock;
+        // $psdrendah = $psd1 / $psd2;
+        // //mencari nilai persediaan banyak
+        // $psd3 = 140 - $minstock;
+        // $psd4 = $maxstock - $minstock;
+        // $psdtinggi = $psd3 / $psd4;
 
-        //mencari nilai pembelian berkurang
-        $pmb1 = $maxpurchase - 750;
-        $pmb2 =  $maxpurchase - $minpurchase;
-        $pmbberkurang = $pmb1 / $pmb2;
-        //mencari nilai pembelian bertambah
-        $pmb3 = 750 - $minpurchase;
-        $pmb4 = $maxpurchase - $minpurchase;
-        $pmbbertambah = $pmb3 / $pmb4;
+        // //mencari nilai pembelian berkurang
+        // $pmb1 = $maxpurchase - 750;
+        // $pmb2 =  $maxpurchase - $minpurchase;
+        // $pmbberkurang = $pmb1 / $pmb2;
+        // //mencari nilai pembelian bertambah
+        // $pmb3 = 750 - $minpurchase;
+        // $pmb4 = $maxpurchase - $minpurchase;
+        // $pmbbertambah = $pmb3 / $pmb4;
            
 
 
@@ -142,13 +142,88 @@ class PredictionController extends Controller
 
 
 
-dd($pmbbertambah);
+// dd($pmbbertambah);
 
 
 
 
         return view('dashboard.prediksi.index', compact('products'));
     }
+
+
+/**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'number_sale' => 'required',
+            'total' => 'required',
+            'discount' => 'required',
+            'total_amount' => 'required',
+            'paid' => 'required',
+            'credit' => 'required',
+            'status' => 'required',
+            'client_id' => 'required',
+            'product' => 'required',
+            'quantity' => 'required',
+        ]);
+        $data = $request->all();
+
+        $sale = Sale::create([
+            'number_sale' => $data['number_sale'],
+            'total' => $data['total'],
+            'discount' => $data['discount'],
+            'total_amount' => $data['total_amount'],
+            'paid' => $data['paid'],
+            'due' => $data['credit'],
+            'status' => $data['status'],
+            'client_id' => $data['client_id'],
+
+        ]);
+        $dat = $data['product'];
+        $qty = $request->get('quantity');
+        //attach sale with there products and quantities
+        $attach_data = [];
+        for ($i = 0; $i < count($dat); $i++) {
+            $attach_data[$dat[$i]] = ['quantity' => $qty[$i]];
+        }
+        $sale->products()->attach($attach_data);
+        //check products stock and substract quntities that is sale
+        for ($i = 0; $i < count($dat); $i++) {
+            $product = Product::find($dat[$i]);
+            if ($product->stock == 0) {
+                toast('this product stock is empty', 'error', 'top-right');
+            } else {
+                $product->stock = $product->stock - ($qty[$i]);
+                $product->save();
+            }
+        }
+        return redirect()->back();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 public function maxpurchase(Request $request)

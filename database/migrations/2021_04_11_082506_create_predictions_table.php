@@ -15,27 +15,22 @@ class CreatePredictionsTable extends Migration
     {
         Schema::create('predictions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('max_product_masuk');
-            $table->integer('max_product_keluar');
-            $table->integer('persediaan');
-            $table->integer('permintaan');
-            $table->integer('persediaan');
-            $table->double('permintaan_tertinggi');
-            $table->double('persediaan_tertinggi');
-            $table->double('pembelian_tertinggi');
-            $table->double('permintaan_terendah');
-            $table->double('persediaan_terendah');
-            $table->double('pembelian_terendah');
-            $table->double('permintaan_sedikit');
-            $table->double('permintaan_banyak');
-            $table->double('penjualan_turun');
-            $table->double('penjualan_naik');
-            $table->double('hasil_rules_satu');
-            $table->double('hasil_rules_dua');
-            $table->double('hasil_rules_tiga');
-            $table->double('hasil_rules_empat');
-            $table->double('defuzifikasi');
-            $table->string('kesimpulan');
+            $table->integer('product_id')->unsigned();
+            $table->integer('input_persediaan')->nullable();
+            $table->integer('input_permintaan')->nullable();
+            $table->double('permintaan_terendah')->nullable();
+            $table->double('permintaan_tertinggi')->nullable();
+            $table->double('persediaan_terendah')->nullable();
+            $table->double('persediaan_tertinggi')->nullable();
+            $table->double('pembelian_terendah')->nullable();
+            $table->double('pembelian_tertinggi')->nullable();
+            $table->double('hasil_rules_satu')->nullable();
+            $table->double('hasil_rules_dua')->nullable();
+            $table->double('hasil_rules_tiga')->nullable();
+            $table->double('hasil_rules_empat')->nullable();
+            $table->double('defuzifikasi')->nullable();
+            $table->string('kesimpulan')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
