@@ -25,7 +25,6 @@ class Controller extends BaseController
             $start_day = $general_setting->start_day;
             $logo = $general_setting->image;
         }
-        // Sharing is caring
         View::share('store_id', $store_id);
         View::share('store_name', $store_name);
         View::share('description', $description);

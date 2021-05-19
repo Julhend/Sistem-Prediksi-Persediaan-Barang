@@ -60,6 +60,9 @@ Route::group(
             ]);
             Route::get('/product-keluar', 'Dashboard\PredictionController@productKeluar')->name('prediksi.productKeluar');
             Route::get('/product-masuk', 'Dashboard\PredictionController@masuk')->name('prediksi.masuk');
+
+
+            //  Route::get('/max-purchase', ['uses' => 'Dashboard\PredictionController@maxpurchase', 'as' => 'purchase.maxpurchase']);
             // Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
             //------------------------------------------
 

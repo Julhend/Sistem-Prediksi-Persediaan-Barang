@@ -12,7 +12,7 @@
                 <div class="row no-gutters">
                     <div class="col-12 col-sm-6 col-md-8">
                         {{-- <h3 class="card-title">@lang('site.tabdata')</h3> --}}
-                        <h3 class="card-title">Data Product Masuk</h3>
+                        <h3 class="card-title">Nilai Product Masuk Terbesar</h3>
                     </div>
 
                 </div>

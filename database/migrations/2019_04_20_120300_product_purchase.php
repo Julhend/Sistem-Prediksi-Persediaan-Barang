@@ -16,7 +16,7 @@ class ProductPurchase extends Migration
         Schema::create('product_purchase', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
-            $table->string('quantity');
+            $table->integer('quantity');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('purchase_id')->unsigned();
             $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');

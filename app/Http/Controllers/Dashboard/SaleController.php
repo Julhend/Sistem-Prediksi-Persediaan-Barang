@@ -38,7 +38,7 @@ class SaleController extends Controller
         $categories = Category::all();
         $products = Product::all();
         $sales = Sale::all();
-        //$lastsaleId = sale::all()->last()->number_sale;
+        
 
         //$sale_number = 'SN' . date('Ymd') . '0001';
         if (sale::all()->last() == null) {

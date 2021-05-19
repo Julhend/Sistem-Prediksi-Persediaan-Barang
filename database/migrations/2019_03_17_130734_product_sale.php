@@ -16,7 +16,7 @@ class ProductSale extends Migration
         Schema::create('product_sale', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
-            $table->string('quantity');
+            $table->integer('quantity');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('sale_id')->unsigned();
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');

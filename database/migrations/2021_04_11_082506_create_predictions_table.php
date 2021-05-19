@@ -15,8 +15,11 @@ class CreatePredictionsTable extends Migration
     {
         Schema::create('predictions', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('permintaan');
-            $table->double('persediaan');
+            $table->integer('max_product_masuk');
+            $table->integer('max_product_keluar');
+            $table->integer('persediaan');
+            $table->integer('permintaan');
+            $table->integer('persediaan');
             $table->double('permintaan_tertinggi');
             $table->double('persediaan_tertinggi');
             $table->double('pembelian_tertinggi');
