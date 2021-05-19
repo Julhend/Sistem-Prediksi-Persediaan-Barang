@@ -11,7 +11,6 @@
 
         <!-- /.card-header -->
         <div class="card-body">
-
             <form action="{{ route('category.store') }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('post') }}
