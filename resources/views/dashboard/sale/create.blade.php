@@ -328,6 +328,7 @@
             reactToPaste: true, // Compatibility to built-in scanners in paste-mode (as opposed to keyboard-mode)
             onScan: function (sCode, iQty) { // Alternative to document.addEventListener('scan')
                 console.log('Scanned: ' + iQty + 'x ' + sCode);
+                
                 $.ajax({
                     type: "GET",
                     url: "/addproduct",

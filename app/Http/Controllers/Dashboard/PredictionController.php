@@ -85,7 +85,6 @@ class PredictionController extends Controller
         ->where('product_id',$request->product_id)
         ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->max('quantity');
-
         $maxpurchase =  \DB::table('product_purchase')
         ->where('product_id',$request->product_id)
         ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
@@ -93,7 +92,6 @@ class PredictionController extends Controller
         $maxstock =  \DB::table('products')
         ->where('id',$request->product_id)
         ->max('stock');
-
 
         $minsale =  \DB::table('product_sale')
        ->where('product_id',$request->product_id)
@@ -108,33 +106,33 @@ class PredictionController extends Controller
         ->min('min_stock');
  
 
-        // //mencari nilai permintaan rendah
-        // $pmt1 = $maxsale - 1800;
-        // $pmt2 = $maxsale - $minsale;
-        // $pmtrendah = $pmt1 / $pmt2;
+        //mencari nilai permintaan rendah
+        $pmt1 = $maxsale - $permintaan_tertinggi;
+        $pmt2 = $maxsale - $minsale;
+        $pmtrendah = $pmt1 / $pmt2;
         
-        // //mencari nilai permintaan tinggi
-        // $pmt3 = 1800 - $minsale;
-        // $pmt4 = $maxsale - $minsale;
-        // $pmttinggi = $pmt3 / $pmt4;
+        //mencari nilai permintaan tinggi
+        $pmt3 = 1800 - $minsale;
+        $pmt4 = $maxsale - $minsale;
+        $pmttinggi = $pmt3 / $pmt4;
 
-        // //mencari nilai persediaan sedikit
-        // $psd1 = $maxstock - 140;
-        // $psd2 = $maxstock - $minstock;
-        // $psdrendah = $psd1 / $psd2;
-        // //mencari nilai persediaan banyak
-        // $psd3 = 140 - $minstock;
-        // $psd4 = $maxstock - $minstock;
-        // $psdtinggi = $psd3 / $psd4;
+        //mencari nilai persediaan sedikit
+        $psd1 = $maxstock - 140;
+        $psd2 = $maxstock - $minstock;
+        $psdrendah = $psd1 / $psd2;
+        //mencari nilai persediaan banyak
+        $psd3 = 140 - $minstock;
+        $psd4 = $maxstock - $minstock;
+        $psdtinggi = $psd3 / $psd4;
 
-        // //mencari nilai pembelian berkurang
-        // $pmb1 = $maxpurchase - 750;
-        // $pmb2 =  $maxpurchase - $minpurchase;
-        // $pmbberkurang = $pmb1 / $pmb2;
-        // //mencari nilai pembelian bertambah
-        // $pmb3 = 750 - $minpurchase;
-        // $pmb4 = $maxpurchase - $minpurchase;
-        // $pmbbertambah = $pmb3 / $pmb4;
+        //mencari nilai pembelian berkurang
+        $pmb1 = $maxpurchase - 750;
+        $pmb2 =  $maxpurchase - $minpurchase;
+        $pmbberkurang = $pmb1 / $pmb2;
+        //mencari nilai pembelian bertambah
+        $pmb3 = 750 - $minpurchase;
+        $pmb4 = $maxpurchase - $minpurchase;
+        $pmbbertambah = $pmb3 / $pmb4;
            
 
 
@@ -147,9 +145,22 @@ class PredictionController extends Controller
 
 
 
-        return view('dashboard.prediksi.index', compact('products'));
+        return view('dashboard.prediksi.index', compact('products','maxstock','maxsale','maxpurchase','minstock','minsale','minpurchase'));
     }
 
+
+    public function getMaxStock($id){
+        // if (empty($id)){
+        //     return[];
+        // }
+          $maxstock = \DB::table('products')
+            ->orderByRaw('stock DESC LIMIT 1')
+            ->where('id',1)
+            ->get();
+
+            return $maxstock;
+
+    }
 
 /**
      * Store a newly created resource in storage.
