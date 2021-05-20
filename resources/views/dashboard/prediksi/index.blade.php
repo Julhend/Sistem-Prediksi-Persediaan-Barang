@@ -53,6 +53,34 @@
                             <div class="row">
                                 <div class="col-md-6">
                                 </div>
+                                <table id="sale" class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Permintaan Tertinggi</th>
+                                            <th>Permintaan Terendah</th>
+                                            <th>Persediaan Tertinggi</th>
+                                            <th>Persediaan Terendah</th>
+                                            <th>Pembelian Tertinggi</th>
+                                            <th>Pembelian Terendah</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $maxsale }}</td>
+                                            <td>{{ $minsale }}</td>
+                                            <td>{{ $maxstock }}</td>
+                                            <td>{{ $minstock }}</td>
+                                            <td>{{ $maxpurchase }}</td>
+                                            <td>{{ $minpurchase }}</td>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+
+                                </table>
                                 <div class="col-md-8">
                                     <label>Wajib Di Input</label>
                                     <div class="form-group">
