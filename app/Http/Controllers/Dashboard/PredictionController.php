@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 
 use App\Product;
-use App\Category;
-use App\Provider;
-use App\Purchase;
+use App\Prediction;
 use App\ProductPurchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,6 +25,27 @@ class PredictionController extends Controller
     public function index(Request $request)
     {
         $products = Product::all();
+        $maxsale =0;
+        $maxpurchase=0;
+        $minsale=0;
+        $minpurchase=0;
+        $maxstock=0;
+
+        return view('dashboard.prediksi.index', compact(
+            'products',
+            'maxsale',
+            'maxpurchase',
+            'minstock',
+            'minsale',
+            'minpurchase',
+            'maxstock',
+        ));
+    }
+
+    public function prediksi(Request $request){ 
+    
+        $products = Product::all();
+
         $maxsale =  \DB::table('product_sale')
         ->where('product_id',$request->product_id)
         ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
@@ -50,41 +69,30 @@ class PredictionController extends Controller
         $minstock =  \DB::table('products')
         ->where('id',$request->product_id)
         ->min('min_stock');
- 
 
-// $request->validate([
-//             'input_permintaan' => 'required',
-//             'input_persediaan' => 'required',
-//         ]);
-//         $data = $request->all();
+        $inputpermintaan = $request->input_permintaan;
+        $inputpersediaan = $request->input_persediaan;
+        $inputpembelian = $request->input_pembelian;
+     
 
 
-
-
-
-
-
-
-
-
-
-
-        //mencari nilai permintaan rendah
-        // $pmt1 = $maxsale - 1800;
+        // // mencari nilai permintaan rendah
+        // $pmt1 = $maxsale - $inputpermintaan;
         // $pmt2 = $maxsale - $minsale;
         // $pmtrendah = $pmt1 / $pmt2;
         
-        // //mencari nilai permintaan tinggi
+        // // mencari nilai permintaan tinggi
         // $pmt3 = 1800 - $minsale;
         // $pmt4 = $maxsale - $minsale;
         // $pmttinggi = $pmt3 / $pmt4;
 
         // //mencari nilai persediaan sedikit
-        // $psd1 = $maxstock - 140;
+        // $psd1 = $maxstock - $inputpersediaan;
         // $psd2 = $maxstock - $minstock;
         // $psdrendah = $psd1 / $psd2;
+
         // //mencari nilai persediaan banyak
-        // $psd3 = 140 - $minstock;
+        // $psd3 = $inputpersediaan - $minstock;
         // $psd4 = $maxstock - $minstock;
         // $psdtinggi = $psd3 / $psd4;
 
@@ -92,80 +100,78 @@ class PredictionController extends Controller
         // $pmb1 = $maxpurchase - 750;
         // $pmb2 =  $maxpurchase - $minpurchase;
         // $pmbberkurang = $pmb1 / $pmb2;
+
         // //mencari nilai pembelian bertambah
         // $pmb3 = 750 - $minpurchase;
         // $pmb4 = $maxpurchase - $minpurchase;
         // $pmbbertambah = $pmb3 / $pmb4;
-           
 
-
-
-
-
-
-// dd($pmbbertambah);
-
-
-
-
-        return view('dashboard.prediksi.index', compact('products','maxstock','maxsale','maxpurchase','minstock','minsale','minpurchase'));
+        return view('dashboard.prediksi.index', compact(
+            'products',
+            'maxstock',
+            'maxsale',
+            'maxpurchase',
+            'minstock',
+            'minsale',
+            'minpurchase'
+        ));
     }
 
+ public function store(Request $request){
+    
+            $inputpermintaan = $request->input_permintaan;
+            $inputpersediaan = $request->input_persediaan;
+            $inputpembelian = $request->input_pembelian;
 
-    // public function getMaxStock($id){
-    //     // if (empty($id)){
-    //     //     return[];
-    //     // }
-    //       $maxstock = \DB::table('products')
-    //         ->orderByRaw('stock DESC LIMIT 1')
-    //         ->where('id',1)
-    //         ->get();
+         // mencari nilai permintaan rendah
+            // $pmt1 = $maxsale - $inputpermintaan;
+            // $pmt2 = $maxsale - $minsale;
+            // $pmtrendah = $pmt1 / $pmt2;
 
-    //         return $maxstock;
+            $pmt1 = 3000 - $inputpermintaan;
+            $pmt2 = 3000 - 2000;
+            $pmtrendah = $pmt1 / $pmt2;
+            
+            // mencari nilai permintaan tinggi
+            // $pmt3 = $inputpermintaan - $minsale;
+            // $pmt4 = $maxsale - $minsale;
+            // $pmttinggi = $pmt3 / $pmt4;
 
-    // }
+            //mencari nilai persediaan sedikit
+            // $psd1 = $maxstock - $inputpersediaan;
+            // $psd2 = $maxstock - $minstock;
+            // $psdrendah = $psd1 / $psd2;
 
+            //mencari nilai persediaan banyak
+            // $psd3 = $inputpersediaan - $minstock;
+            // $psd4 = $maxstock - $minstock;
+            // $psdtinggi = $psd3 / $psd4;
 
+            //mencari nilai pembelian berkurang
+            // $pmb1 = $maxpurchase - input_pembelian;
+            // $pmb2 =  $maxpurchase - $minpurchase;
+            // $pmbberkurang = $pmb1 / $pmb2;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     public function masuk(Request $request){
-//      $products = Product::all();
-//      $purchase =\DB::table('product_purchase')
-//             ->orderByRaw('quantity DESC LIMIT 1')
-//             ->where('product_id',$request->product_id)
-//             ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
-//             ->get();
-//         return view('dashboard.prediksi.productMasuk', compact('products','purchase'));
-//     }
+            //mencari nilai pembelian bertambah
+            // $pmb3 = input_pembelian - $minpurchase;
+            // $pmb4 = $maxpurchase - $minpurchase;
+            // $pmbbertambah = $pmb3 / $pmb4;
 
 
-//  public function productKeluar(Request $request){
-//      $products = Product::all();
-//      $sale =\DB::table('product_sale')
-//             ->orderByRaw('quantity DESC LIMIT 1')
-//             ->where('product_id',$request->product_id)
-//             ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
-//             ->get(); 
-//     return view('dashboard.prediksi.productKeluar', compact('products','sale'));
-//     }
+          Prediction::create([
+              'product_id' => $request['product_id'],
+              'input_permintaan' => $request['input_permintaan'],
+              'input_persediaan' => $request['input_persediaan'],
+              'input_pembelian' => $request['input_pembelian'],
+              'permintaan_terendah' => $pmtrendah,
+            //   'permintaan_tertinggi' => $pmttinggi,
+            //   'persediaan_terendah' => $psdrendah,
+            //   'persediaan_terendah' => $psdtinggi,
+            //   'pembelian_terendah' => $pmbberkurang,
+            //   'pembelian_terendah' => $pmbbertambah,
+          ]);
+
+            return redirect()->back();
+    }
 
 }

@@ -15,9 +15,10 @@ class CreatePredictionsTable extends Migration
     {
         Schema::create('predictions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned();
+            $table->integer('product_id')->unsigned()->nullable();
             $table->integer('input_persediaan')->nullable();
             $table->integer('input_permintaan')->nullable();
+            $table->integer('input_pembelian')->nullable();
             $table->double('permintaan_terendah')->nullable();
             $table->double('permintaan_tertinggi')->nullable();
             $table->double('persediaan_terendah')->nullable();
