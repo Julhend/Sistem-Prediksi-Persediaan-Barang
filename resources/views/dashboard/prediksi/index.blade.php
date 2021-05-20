@@ -55,7 +55,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                 </div>
-                                <table id="sale" class="table table-sm table-bordered">
+                                {{-- <table id="sale" class="table table-sm table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Permintaan Tertinggi</th>
@@ -70,34 +70,81 @@
                                     <tbody>
                                         <tr>
                                             <td>{{ $maxsale }}</td>
-                                            <td>{{ $minsale }}</td>
-                                            <td>{{ $maxstock }}</td>
-                                            <td>{{ $minstock }}</td>
-                                            <td>{{ $maxpurchase }}</td>
-                                            <td>{{ $minpurchase }}</td>
+                                <td>{{ $minsale }}</td>
+                                <td>{{ $maxstock }}</td>
+                                <td>{{ $minstock }}</td>
+                                <td>{{ $maxpurchase }}</td>
+                                <td>{{ $minpurchase }}</td>
 
-                                            </td>
-                                        </tr>
+                                </td>
+                                </tr>
 
-                                    </tbody>
+                                </tbody>
 
 
-                                </table>
-                                <div class="col-md-8">
+                                </table> --}}
+                                <div class="col-md-12">
 
                                     <div class="form-group">
-
-                                        <input type="number" name="input_permintaan" id="" class="form-control col-sm-4"
-                                            placeholder="permintaan" value="{{ old('input_permintaan') }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" name="input_persediaan" id="" class="form-control col-sm-4"
-                                            placeholder="persediaan" value="{{ old('input_persediaan') }}">
+                                        <label>Input Permintaan</label>
+                                        <input type="number" name="input_permintaan" id="" class="form-control"
+                                            value="{{ old('input_permintaan') }}">
 
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" name="input_pembelian" id="" class="form-control col-sm-4"
-                                            placeholder="pembelian" value="{{ old('input_pembelian') }}">
+                                        <label>Input Persediaan</label>
+                                        <input type="number" name="input_persediaan" id="" class="form-control"
+                                            value="{{ old('input_persediaan') }}">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Input Pembelian</label>
+                                        <input type="number" name="input_pembelian" id="" class="form-control"
+                                            value="{{ old('input_pembelian') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Permintaan Tertinggi</label>
+                                        <input readonly type="number" name="max_sale" id=""
+                                            class="form-control col-sm-12" placeholder="Permintaan Tertinggi"
+                                            value="{{ $maxsale }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Permintaan Terendah</label>
+                                        <input readonly type="number" name="min_sale" id=""
+                                            class="form-control col-sm-12" placeholder="Permintaan Terendah"
+                                            value="{{ $minsale }}">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Persediaan Tertinggi</label>
+                                        <input readonly type="number" name="max_stock" id=""
+                                            class="form-control col-sm-12" placeholder="Persediaan Tertinggi"
+                                            value="{{ $maxstock }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Persediaan Terendah</label>
+                                        <input readonly type="number" name="min_stock" id=""
+                                            class="form-control col-sm-12" placeholder="Persediaan Terendah"
+                                            value="{{ $minstock }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Pembelian Tertinggi</label>
+                                        <input readonly type="number" name="max_purchase" id=""
+                                            class="form-control col-sm-12" placeholder="Pembelian Tertinggi"
+                                            value="{{ $maxpurchase }}">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Pembelian Terendah</label>
+                                        <input readonly type="number" name="min_purchase" id=""
+                                            class="form-control col-sm-12" placeholder="Pembelian Terendah"
+                                            value="{{ $minpurchase }}">
                                     </div>
                                 </div>
 

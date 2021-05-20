@@ -30,6 +30,7 @@ class PredictionController extends Controller
         $minsale=0;
         $minpurchase=0;
         $maxstock=0;
+        $minstock=0;
 
         return view('dashboard.prediksi.index', compact(
             'products',
@@ -70,42 +71,6 @@ class PredictionController extends Controller
         ->where('id',$request->product_id)
         ->min('min_stock');
 
-        $inputpermintaan = $request->input_permintaan;
-        $inputpersediaan = $request->input_persediaan;
-        $inputpembelian = $request->input_pembelian;
-     
-
-
-        // // mencari nilai permintaan rendah
-        // $pmt1 = $maxsale - $inputpermintaan;
-        // $pmt2 = $maxsale - $minsale;
-        // $pmtrendah = $pmt1 / $pmt2;
-        
-        // // mencari nilai permintaan tinggi
-        // $pmt3 = 1800 - $minsale;
-        // $pmt4 = $maxsale - $minsale;
-        // $pmttinggi = $pmt3 / $pmt4;
-
-        // //mencari nilai persediaan sedikit
-        // $psd1 = $maxstock - $inputpersediaan;
-        // $psd2 = $maxstock - $minstock;
-        // $psdrendah = $psd1 / $psd2;
-
-        // //mencari nilai persediaan banyak
-        // $psd3 = $inputpersediaan - $minstock;
-        // $psd4 = $maxstock - $minstock;
-        // $psdtinggi = $psd3 / $psd4;
-
-        // //mencari nilai pembelian berkurang
-        // $pmb1 = $maxpurchase - 750;
-        // $pmb2 =  $maxpurchase - $minpurchase;
-        // $pmbberkurang = $pmb1 / $pmb2;
-
-        // //mencari nilai pembelian bertambah
-        // $pmb3 = 750 - $minpurchase;
-        // $pmb4 = $maxpurchase - $minpurchase;
-        // $pmbbertambah = $pmb3 / $pmb4;
-
         return view('dashboard.prediksi.index', compact(
             'products',
             'maxstock',
@@ -118,44 +83,49 @@ class PredictionController extends Controller
     }
 
  public function store(Request $request){
-    
-            $inputpermintaan = $request->input_permintaan;
-            $inputpersediaan = $request->input_persediaan;
-            $inputpembelian = $request->input_pembelian;
 
-         // mencari nilai permintaan rendah
-            // $pmt1 = $maxsale - $inputpermintaan;
-            // $pmt2 = $maxsale - $minsale;
-            // $pmtrendah = $pmt1 / $pmt2;
+        $maxsale =  $request->max_sale;
+        // $maxpurchase =  
+        // $minsale =  
+        // $minpurchase =  
+        // $minstock =  
+        $inputpermintaan = $request->input_permintaan;
+        $inputpersediaan = $request->input_persediaan;
+        $inputpembelian = $request->input_pembelian;
 
-            $pmt1 = 3000 - $inputpermintaan;
-            $pmt2 = 3000 - 2000;
-            $pmtrendah = $pmt1 / $pmt2;
+//          // mencari nilai permintaan rendah
+//             $pmt1 = $maxsale - $inputpermintaan;
+//             $pmt2 = $maxsale - $minsale;
+//             $pmtrendah = $pmt1 / $pmt2;
+
+// //             $pmt1 = 3000 - $inputpermintaan;
+// //             $pmt2 = 3000 - 2000;
+// //             $pmtrendah = $pmt1 / $pmt2;
             
-            // mencari nilai permintaan tinggi
-            // $pmt3 = $inputpermintaan - $minsale;
-            // $pmt4 = $maxsale - $minsale;
-            // $pmttinggi = $pmt3 / $pmt4;
+//             // mencari nilai permintaan tinggi
+//             $pmt3 = $inputpermintaan - $minsale;
+//             $pmt4 = $maxsale - $minsale;
+//             $pmttinggi = $pmt3 / $pmt4;
 
-            //mencari nilai persediaan sedikit
-            // $psd1 = $maxstock - $inputpersediaan;
-            // $psd2 = $maxstock - $minstock;
-            // $psdrendah = $psd1 / $psd2;
+//             //mencari nilai persediaan sedikit
+//             $psd1 = $maxstock - $inputpersediaan;
+//             $psd2 = $maxstock - $minstock;
+//             $psdrendah = $psd1 / $psd2;
 
-            //mencari nilai persediaan banyak
-            // $psd3 = $inputpersediaan - $minstock;
-            // $psd4 = $maxstock - $minstock;
-            // $psdtinggi = $psd3 / $psd4;
+//             //mencari nilai persediaan banyak
+//             $psd3 = $inputpersediaan - $minstock;
+//             $psd4 = $maxstock - $minstock;
+//             $psdtinggi = $psd3 / $psd4;
 
-            //mencari nilai pembelian berkurang
-            // $pmb1 = $maxpurchase - input_pembelian;
-            // $pmb2 =  $maxpurchase - $minpurchase;
-            // $pmbberkurang = $pmb1 / $pmb2;
+//             //mencari nilai pembelian berkurang
+//             $pmb1 = $maxpurchase - $input_pembelian;
+//             $pmb2 =  $maxpurchase - $minpurchase;
+//             $pmbberkurang = $pmb1 / $pmb2;
 
-            //mencari nilai pembelian bertambah
-            // $pmb3 = input_pembelian - $minpurchase;
-            // $pmb4 = $maxpurchase - $minpurchase;
-            // $pmbbertambah = $pmb3 / $pmb4;
+//             //mencari nilai pembelian bertambah
+//             $pmb3 = $input_pembelian - $minpurchase;
+//             $pmb4 = $maxpurchase - $minpurchase;
+//             $pmbbertambah = $pmb3 / $pmb4;
 
 
           Prediction::create([
@@ -163,7 +133,7 @@ class PredictionController extends Controller
               'input_permintaan' => $request['input_permintaan'],
               'input_persediaan' => $request['input_persediaan'],
               'input_pembelian' => $request['input_pembelian'],
-              'permintaan_terendah' => $pmtrendah,
+            //   'permintaan_terendah' => $pmtrendah,
             //   'permintaan_tertinggi' => $pmttinggi,
             //   'persediaan_terendah' => $psdrendah,
             //   'persediaan_terendah' => $psdtinggi,
