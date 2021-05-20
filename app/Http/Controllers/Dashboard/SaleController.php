@@ -85,6 +85,7 @@ class SaleController extends Controller
             'client_id' => $data['client_id'],
 
         ]);
+        
         $dat = $data['product'];
         $qty = $request->get('quantity');
         //attach sale with there products and quantities
