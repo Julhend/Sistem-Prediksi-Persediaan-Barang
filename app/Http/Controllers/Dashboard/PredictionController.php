@@ -114,6 +114,12 @@ class PredictionController extends Controller
             $psd4 = $maxstock - $minstock;
             $psdtinggi = $psd3 / $psd4;
 
+
+//input pembelian tidak perluuuuuuuuuuuuuuuuuuuuuuuuuuu
+//output = pmt tinggi pmt rendah
+//output = persediaan banyak, persediaan sedikit
+
+
             //mencari nilai pembelian berkurang
             $pmb1 = $maxpurchase - $inputpembelian;
             $pmb2 =  $maxpurchase - $minpurchase;
