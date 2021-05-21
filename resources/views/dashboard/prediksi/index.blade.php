@@ -97,11 +97,6 @@
                                             value="{{ old('input_persediaan') }}">
 
                                     </div>
-                                    <div class="form-group">
-                                        <label>Input Pembelian</label>
-                                        <input type="number" name="input_pembelian" id="" class="form-control"
-                                            value="{{ old('input_pembelian') }}">
-                                    </div>
                                 </div>
                                 <div class="col-md-6">
 
@@ -162,12 +157,12 @@
 
                     </div>
 
-                    <div class="col-md-12">
+                    {{-- <div class="col-md-12">
                         <div class="form-group">
-                            <label>✧✧✧✧Nilai Tertinggi✧✧✧✧</label>
+                            <label>✧✧✧✧Permintaan✧✧✧✧</label>
                         </div>
                         <div class="form-group">
-                            <label>Permintaan | Sales </label>
+                            <label>Permintaan Banyak </label>
                             <input readonly type="number" name="permintaan_tertinggi" id="permintaan_tertinggi"
                                 class="form-control" min="0" value="0">
 
@@ -243,19 +238,19 @@
                         <div class="form-group">
                             <label>✧✧✧✧Kesimpulan✧✧✧✧</label>
                             <input readonly type="text" name="kesimpulan" id="kesimpulan" class="form-control">
-                            {{-- <textarea id="kesimpulan" name="kesimpulan"></textarea> --}}
+                           
                         </div>
                         <div class="modal-footer form-group">
                             <button type="submit" class="btn btn-success float-right"
                                 href="{{ route('prediksi.store') }}"><i class="fas fa-print"></i>
-                                Cetak</button>
-                        </div>
-                    </div>
-                </div>
+                    Cetak</button>
+                </div> --}}
             </div>
-            </form>
         </div>
     </div>
+    </form>
+</div>
+</div>
 </div>
 
 </div>

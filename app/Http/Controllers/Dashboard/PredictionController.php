@@ -92,56 +92,65 @@ class PredictionController extends Controller
         $minstock = $request->min_stock;
         $inputpermintaan = $request->input_permintaan;
         $inputpersediaan = $request->input_persediaan;
-        $inputpembelian = $request->input_pembelian;
 
-         // mencari nilai permintaan rendah
-            $pmt1 = $maxsale - $inputpermintaan;
-            $pmt2 = $maxsale - $minsale;
-            $pmtrendah = $pmt1 / $pmt2;
+        // mencari nilai permintaan rendah
+        $pmt1 = $maxsale - $inputpermintaan;
+        $pmt2 = $maxsale - $minsale;
+        $pmtrendah = $pmt1 / $pmt2;
 
-            // mencari nilai permintaan tinggi
-            $pmt3 = $inputpermintaan - $minsale;
-            $pmt4 = $maxsale - $minsale;
-            $pmttinggi = $pmt3 / $pmt4;
+        // mencari nilai permintaan tinggi
+        $pmt3 = $inputpermintaan - $minsale;
+        $pmt4 = $maxsale - $minsale;
+        $pmttinggi = $pmt3 / $pmt4;
 
-            //mencari nilai persediaan sedikit
-            $psd1 = $maxstock - $inputpersediaan;
-            $psd2 = $maxstock - $minstock;
-            $psdrendah = $psd1 / $psd2;
+        //mencari nilai persediaan sedikit
+        $psd1 = $maxstock - $inputpersediaan;
+        $psd2 = $maxstock - $minstock;
+        $psdrendah = $psd1 / $psd2;
 
-            //mencari nilai persediaan banyak
-            $psd3 = $inputpersediaan - $minstock;
-            $psd4 = $maxstock - $minstock;
-            $psdtinggi = $psd3 / $psd4;
-
-
-//input pembelian tidak perluuuuuuuuuuuuuuuuuuuuuuuuuuu
-//output = pmt tinggi pmt rendah
-//output = persediaan banyak, persediaan sedikit
+        //mencari nilai persediaan banyak
+        $psd3 = $inputpersediaan - $minstock;
+        $psd4 = $maxstock - $minstock;
+        $psdtinggi = $psd3 / $psd4;
 
 
-            //mencari nilai pembelian berkurang
-            $pmb1 = $maxpurchase - $inputpembelian;
-            $pmb2 =  $maxpurchase - $minpurchase;
-            $pmbberkurang = $pmb1 / $pmb2;
-
-            //mencari nilai pembelian bertambah
-            $pmb3 = $inputpembelian - $minpurchase;
-            $pmb4 = $maxpurchase - $minpurchase;
-            $pmbbertambah = $pmb3 / $pmb4;
-
+        //input pembelian tidak perluuuuuuuuuuuuuuuuuuuuuuuuuuu
+        //output = pmt tinggi pmt rendah
+        //output = persediaan banyak, persediaan sedikit
+        
+        //rules1
+        $a1 = min($pmtrendah, $psdtinggi);
+        $pmb1 = $inputpermintaan + $inputpersediaan;
+        //rules2
+        $a2 = min($pmtrendah, $psdrendah);
+        $pmb1 = $maxpurchase - $minpurchase;
+        $pmb2 = $a2 * $pmb1;
+        $pmbberkurang = $maxpurchase - $pmb2;
+        //rules3
+        $a3 = min($pmttinggi, $psdtinggi);
+        $pmb2 = $inputpermintaan - $inputpersediaan;
+        //rules4
+        $a4 = min($pmttinggi, $psdrendah);
+        $pmb3 = $maxpurchase - $minpurchase;
+        $pmb4 = $a4 * $pmb3;
+        $pmbbertambah = $pmb4 + $minpurchase;
 
           Prediction::create([
               'product_id' => $request['product_id'],
               'input_permintaan' => $request['input_permintaan'],
               'input_persediaan' => $request['input_persediaan'],
-              'input_pembelian' => $request['input_pembelian'],
-              'permintaan_terendah' => $pmtrendah,
-              'permintaan_tertinggi' => $pmttinggi,
-              'persediaan_terendah' => $psdrendah,
-              'persediaan_terendah' => $psdtinggi,
-              'pembelian_terendah' => $pmbberkurang,
-              'pembelian_terendah' => $pmbbertambah,
+              'permintaan_rendah' => $pmtrendah,
+              'permintaan_tinggi' => $pmttinggi,
+              'persediaan_sedikit' => $psdrendah,
+              'persediaan_banyak' => $psdtinggi,
+              'pembelian_berkurang' => $pmbberkurang,
+              'pembelian_bertambah' => $pmbbertambah,
+              'rules_satu' => $a1,
+              'rules_dua' => $a2,
+              'rules_tiga' => $a3,
+              'rules_empat' => $a4,
+
+
           ]);
 
             return redirect()->back();
