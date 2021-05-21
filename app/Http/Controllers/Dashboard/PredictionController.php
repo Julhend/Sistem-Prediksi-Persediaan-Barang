@@ -71,7 +71,7 @@ class PredictionController extends Controller
         ->where('id',$request->product_id)
         ->min('min_stock');
 
-        return view('dashboard.prediksi.index', compact(
+        return view('dashboard.prediksi.create', compact(
             'products',
             'maxstock',
             'maxsale',
@@ -163,14 +163,24 @@ public function show (Request $request){
 
  public function create()
     {
-        $categories = Category::all();
-        $products = Product::when($request->search, function ($q) use ($request) {
-            return $q->where('product_name', 'like', '%' . $request->search . '%');
-        })->when($request->category_id, function ($q) use ($request) {
-            return $q->where('category_id', $request->category_id);
-        })->latest()->paginate(5);
-        return view('dashboard.product.create', compact('categories', 'products'));
-    }
+        $products = Product::all();
+        $maxsale =0;
+        $maxpurchase=0;
+        $minsale=0;
+        $minpurchase=0;
+        $maxstock=0;
+        $minstock=0;
+
+        return view('dashboard.prediksi.create', compact(
+            'products',
+            'maxsale',
+            'maxpurchase',
+            'minstock',
+            'minsale',
+            'minpurchase',
+            'maxstock',
+        ));
 
 
+}
 }

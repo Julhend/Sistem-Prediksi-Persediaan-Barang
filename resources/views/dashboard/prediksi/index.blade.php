@@ -7,39 +7,9 @@
     <div class="card card-primary">
         <div class="card-header with-border">
             <form action="{{ route('prediksi.prediksi') }}" method="get">
-                <div class="row no-gutters">
-                    <div class="col-12 col-sm-6 col-md-8">
-                        <h3 class="card-title">Pilih Barang :</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 form-group">
-                            <select name="product_id" id="id" class="form-control">
-                                <option value="">@lang('site.product')</option>
-                                @foreach ($products as $product)
-                                <option value="{{ $product->id }}"
-                                    {{ request()->product_id == $product->id ? 'selected' : ''}}>{{
-                                        $product->product_name }}</option>
-                                {{-- 
-                                {{ old('product_id') == $product->id ? 'selected' : ''}}>{{
-                                $product->product_name }}</option> --}}
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            <input type="date" name="tgl_awal" class="form-control" value="{{ request()->tgl_awal }}">
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <input type="date" name="tgl_akhir" class="form-control" value="{{ request()->tgl_akhir }}">
-                        </div>
-
-                        <div class="col-md-3 form-group">
-                            <button type="submit" class="btn btn-success float-left"><i class="fas fa-search"></i>
-                                @lang('site.search') </button>
-                        </div>
-
-                    </div>
-                </div>
+                <a type="" class="btn btn-success btn float-right" style="" href="{{ route('prediksi.create') }}"><i
+                        class="fas fa-user-plus"></i>
+                    Create Prediksi</a>
             </form>
         </div>
 
