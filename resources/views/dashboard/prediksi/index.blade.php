@@ -262,21 +262,3 @@
 
 
 @stop
-
-@section('script')
-<script type="text/javascript">
-    function autofill(){
-       var id = $("#id").val();
-      $.ajax({
-        // type: "GET",
-        url: "/max-purchase",
-        data: 'id=' + id,
-        }).success(function(data){
-            var json = data,
-            obj = JSON.parse(json); 
-                $("#max_purchase").val(obj.quantity);
-        });
-   }
-
-</script>
-@endsection
