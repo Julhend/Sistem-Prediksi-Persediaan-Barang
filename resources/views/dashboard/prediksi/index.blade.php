@@ -6,229 +6,121 @@
 <div class="col-md-12">
     <div class="card card-primary">
         <div class="card-header with-border">
-            <form action="{{ route('prediksi.prediksi') }}" method="get">
-                <a type="" class="btn btn-success btn float-right" style="" href="{{ route('prediksi.create') }}"><i
-                        class="fas fa-user-plus"></i>
-                    Create Prediksi</a>
-            </form>
+            <a type="" class="btn btn-success btn float-right" style="" href="{{ route('prediksi.create') }}"><i
+                    class="fas fa-chart-line"></i>
+                Create Prediksi</a>
         </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div id="product_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="product_table" class="table table-bordered table-striped table-hover  dataTable"
+                        role="grid" aria-describedby="product_table_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="product_table" rowspan="1"
+                                    colspan="1" aria-sort="ascending"
+                                    aria-label="Rendering engine: activate to sort column descending"
+                                    style="width: 283px;">No</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Browser: activate to sort column ascending" style="width: 359px;">
+                                    Product</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Platform(s): activate to sort column ascending" style="width: 283px;">
+                                    Permintaan Rendah</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Platform(s): activate to sort column ascending" style="width: 283px;">
+                                    Permintaan Tinggi</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Platform(s): activate to sort column ascending" style="width: 283px;">
+                                    Persediaan Sedikit</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Platform(s): activate to sort column ascending" style="width: 320px;">
+                                    Persediaan Banyak</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Platform(s): activate to sort column ascending" style="width: 320px;">
+                                    Defuzifikasi</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Platform(s): activate to sort column ascending" style="width: 320px;">
+                                    Kesimpulan</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Engine version: activate to sort column ascending"
+                                    style="width: 359px;">
+                                    @lang('site.action')</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-        <!-- /.card-header -->
-        <div class="card-body">
-            <div id="prediksi_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <form action="{{ route('prediksi.index') }}" method="post">
-                            {{ csrf_field() }}
-                            {{ method_field('post') }}
-                            @include('partials._errors')
-                            <div class="row">
-                                <div class="col-md-6">
-                                </div>
-                                {{-- <table id="sale" class="table table-sm table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Permintaan Tertinggi</th>
-                                            <th>Permintaan Terendah</th>
-                                            <th>Persediaan Tertinggi</th>
-                                            <th>Persediaan Terendah</th>
-                                            <th>Pembelian Tertinggi</th>
-                                            <th>Pembelian Terendah</th>
+                            @foreach ($products as $index => $product)
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{ $maxsale }}</td>
-                                <td>{{ $minsale }}</td>
-                                <td>{{ $maxstock }}</td>
-                                <td>{{ $minstock }}</td>
-                                <td>{{ $maxpurchase }}</td>
-                                <td>{{ $minpurchase }}</td>
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $product -> codebar }}</td>
+                                <td>{{ $product -> product_name }}</td>
+                                <td>{{ $product -> description }}</td>
+                                <td>{{ $product -> purchase_price }}</td>
+                                <td>{{ $product -> sale_price }}</td>
+                                <td>{{ $product -> stock }}</td>
+                                <td><img src="{{ $product -> image_path }}" style="width:50px;"
+                                        class="img-circle img-thumbnail" alt=""></td>
+                                <td>
+                                    @if (auth()->user()->hasPermission('update_categories'))
+                                    <a class="btn btn-warning btn-sm"
+                                        href="{{ route('product.edit', $product->id) }}"><i class="fas fa-edit"></i>
+                                        @lang('site.edit')</a>
+                                    @else
+                                    <a class="btn btn-warning btn-sm disabled"
+                                        href="{{ route('product.edit', $product->id) }}"><i class="fas fa-edit"></i></i>
+                                        @lang('site.edit')</a>
+                                    @endif
+                                    @if (auth()->user()->hasPermission('delete_products'))
+                                    <button id="delete" onclick="deletemoderator({{ $product->id }})"
+                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
+                                        @lang('site.delete')</button>
+                                    <form id="form-delete-{{ $product->id }}"
+                                        action="{{ route('product.destroy', $product->id) }}" method="post"
+                                        style="display:inline-block;">
+                                        {{ csrf_field() }}
+                                        {{ method_field('delete') }}
+                                    </form>
+                                    @else
+                                    <button type="submit" class="btn btn-danger btn-sm disabled"><i
+                                            class="fas fa-trash"></i>
+                                        @lang('site.delete')</button>
+                                    @endif
 
                                 </td>
-                                </tr>
 
-                                </tbody>
-
-
-                                </table> --}}
-                                <div class="col-md-12">
-
-                                    <div class="form-group">
-                                        <label>Input Permintaan</label>
-                                        <input type="number" name="input_permintaan" id="" class="form-control"
-                                            value="{{ old('input_permintaan') }}">
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Input Persediaan</label>
-                                        <input type="number" name="input_persediaan" id="" class="form-control"
-                                            value="{{ old('input_persediaan') }}">
-
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-                                        <label>Permintaan Tertinggi</label>
-                                        <input readonly type="number" name="max_sale" id=""
-                                            class="form-control col-sm-12" placeholder="Permintaan Tertinggi"
-                                            value="{{ $maxsale }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Permintaan Terendah</label>
-                                        <input readonly type="number" name="min_sale" id=""
-                                            class="form-control col-sm-12" placeholder="Permintaan Terendah"
-                                            value="{{ $minsale }}">
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Persediaan Tertinggi</label>
-                                        <input readonly type="number" name="max_stock" id=""
-                                            class="form-control col-sm-12" placeholder="Persediaan Tertinggi"
-                                            value="{{ $maxstock }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-                                        <label>Persediaan Terendah</label>
-                                        <input readonly type="number" name="min_stock" id=""
-                                            class="form-control col-sm-12" placeholder="Persediaan Terendah"
-                                            value="{{ $minstock }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pembelian Tertinggi</label>
-                                        <input readonly type="number" name="max_purchase" id=""
-                                            class="form-control col-sm-12" placeholder="Pembelian Tertinggi"
-                                            value="{{ $maxpurchase }}">
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pembelian Terendah</label>
-                                        <input readonly type="number" name="min_purchase" id=""
-                                            class="form-control col-sm-12" placeholder="Pembelian Terendah"
-                                            value="{{ $minpurchase }}">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            {{-- <div class="modal-footer form-group">
-                                <button type="submit" class="btn btn-success float-right"
-                                    href="{{ route('prediksi.store') }}"><i class="fas fa-caret-right"></i>
-                            Proses</button> --}}
-                            <div class="modal-footer form-group">
-                                <button type="submit" class="btn btn-success float-left"><i
-                                        class="fas fa-caret-right"></i>
-                                    Proses</button>
-                            </div>
-
-                    </div>
-
-                    {{-- <div class="col-md-12">
-                        <div class="form-group">
-                            <label>✧✧✧✧Permintaan✧✧✧✧</label>
-                        </div>
-                        <div class="form-group">
-                            <label>Permintaan Banyak </label>
-                            <input readonly type="number" name="permintaan_tertinggi" id="permintaan_tertinggi"
-                                class="form-control" min="0" value="0">
-
-                        </div>
-                        <div class="form-group">
-                            <label>Persediaan | Stocks </label>
-                            <input readonly type="number" name="persediaan_tertinggi" id="" class="form-control" min="0"
-                                value="0">
-                        </div>
-                        <div class="form-group">
-                            <label>Pembelian | Purchases </label>
-                            <input readonly type="number" name="pembelian_tertinggi" id="" class="form-control" min="0"
-                                value="0">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>✧✧✧✧Nilai Terendah✧✧✧✧</label>
-                        </div>
-                        <div class="form-group">
-                            <label>Permintaan | Sales</label>
-                            <input readonly type="number" name="permintaan_terendah" id="permintaan_terendah"
-                                class="form-control" min="0" value="0">
-                        </div>
-                        <div class="form-group">
-                            <label>Persediaan | Stocks</label>
-                            <input readonly type="number" name="persediaan_terendah" id="persediaan_terendah"
-                                class="form-control" min="0" value="0">
-                        </div>
-                        <div class="form-group">
-                            <label>Pembelian | Purhcases</label>
-                            <input readonly type="number" name="pembelian_terendah" id="pembelian_terendah"
-                                class="form-control" min="0" value="0">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>✧✧✧✧Hasil Rules✧✧✧✧</label>
-                        </div>
-                        <div class="form-group">
-                            <label>Rules 1</label>
-                            <input readonly type="number" name="rules_pertama" id="rules_pertama" class="form-control"
-                                min="0" value="0">
-
-                        </div>
-                        <div class="form-group">
-                            <label>Rules 2</label>
-                            <input readonly type="number" name="rules_kedua" id="rules_kedua" class="form-control"
-                                vmin="0" value="0">
-
-                        </div>
-                        <div class="form-group">
-                            <label>Rules 3</label>
-                            <input readonly type="number" name="rules_ketiga" id="rules_ketiga" class="form-control"
-                                min="0" value="0">
-
-                        </div>
-                        <div class="form-group">
-                            <label>Rules 4</label>
-                            <input readonly type="number" name="rules_keempat" id="rules_keempat" class="form-control"
-                                min="0" value="0">
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>✧✧✧✧Defuzifikasi✧✧✧✧</label>
-                            <input readonly type="number" name="defuzifikasi" id="defuzifikasi" class="form-control"
-                                min="0" value="0">
-
-                        </div>
-                        <div class="form-group">
-                            <label>✧✧✧✧Kesimpulan✧✧✧✧</label>
-                            <input readonly type="text" name="kesimpulan" id="kesimpulan" class="form-control">
-                           
-                        </div>
-                        <div class="modal-footer form-group">
-                            <button type="submit" class="btn btn-success float-right"
-                                href="{{ route('prediksi.store') }}"><i class="fas fa-print"></i>
-                    Cetak</button>
-                </div> --}}
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th rowspan="1" colspan="1">No</th>
+                                <th rowspan="1" colspan="1">Product</th>
+                                <th rowspan="1" colspan="1">Permintaan Rendah</th>
+                                <th rowspan="1" colspan="1">Permintaan Tinggi</th>
+                                <th rowspan="1" colspan="1">Persediaan Sedikit</th>
+                                <th rowspan="1" colspan="1">Persediaan Banyak</th>
+                                <th rowspan="1" colspan="1">Defuzifikasi</th>
+                                <th rowspan="1" colspan="1">Kesimpulan</th>
+                                <th rowspan="1" colspan="1">Action</th>
+                            </tr>
+                            </tr>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    </form>
-</div>
-</div>
+    <!-- /.card-body -->
 </div>
 
-</div>
-<!-- /.card-body -->
 
 
-</div>
-</div>
 
 
 @stop
