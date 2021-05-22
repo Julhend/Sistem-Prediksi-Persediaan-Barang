@@ -32,48 +32,6 @@ class PredictionController extends Controller
         return view('dashboard.prediksi.index', compact('predict'));
     }
 
-    // public function prediksi(Request $request){ 
-    
-    //     $products = Product::all();
-    //     // $productss = \DB::table('products')
-    //     // ->where('id',$request->product_id)
-    //     // ->get();
-    //     $maxsale =  \DB::table('product_sale')
-    //     ->where('product_id',$request->product_id)
-    //     ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
-    //     ->max('quantity');
-    //     $maxpurchase =  \DB::table('product_purchase')
-    //     ->where('product_id',$request->product_id)
-    //     ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
-    //     ->max('quantity');
-    //     $maxstock =  \DB::table('products')
-    //     ->where('id',$request->product_id)
-    //     ->max('stock');
-
-    //     $minsale =  \DB::table('product_sale')
-    //    ->where('product_id',$request->product_id)
-    //     ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
-    //     ->min('quantity');
-    //     $minpurchase =  \DB::table('product_purchase')
-    //     ->where('product_id',$request->product_id)
-    //     ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
-    //     ->min('quantity');
-    //     $minstock =  \DB::table('products')
-    //     ->where('id',$request->product_id)
-    //     ->min('min_stock');
-
-    //     return view('dashboard.prediksi.create', compact(
-    //         'products',
-    //         'maxstock',
-    //         'maxsale',
-    //         'maxpurchase',
-    //         'minstock',
-    //         'minsale',
-    //         'minpurchase',
-    //         // 'productss',
-    //     ));
-    // }
-
  public function store(Request $request){
 
         $maxsale =  $request->max_sale;
@@ -106,11 +64,6 @@ class PredictionController extends Controller
         $psd4 = $maxstock - $minstock;
         $psdtinggi = $psd3 / $psd4;
 
-
-        //input pembelian tidak perluuuuuuuuuuuuuuuuuuuuuuuuuuu
-        //output = pmt tinggi pmt rendah
-        //output = persediaan banyak, persediaan sedikit
-        
         //rules1
         $a1 = min($pmtrendah, $psdtinggi);
         $pmb1 = $inputpermintaan + $inputpersediaan;
@@ -144,8 +97,6 @@ class PredictionController extends Controller
               'rules_dua' => $a2,
               'rules_tiga' => $a3,
               'rules_empat' => $a4,
-
-
           ]);
 
             return redirect()->back();
@@ -155,20 +106,24 @@ public function show (Request $request){
     $prediksi = Prediction::all();
     
 }
-
  public function create(Request $request)
-    {  $products = Product::all();
+    {   
+        
+        $products = Product::all();
         $productss = \DB::table('products')
         ->where('id',$request->product_id)
         ->get();
+
         $maxsale =  \DB::table('product_sale')
         ->where('product_id',$request->product_id)
         ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->max('quantity');
+
         $maxpurchase =  \DB::table('product_purchase')
         ->where('product_id',$request->product_id)
         ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->max('quantity');
+
         $maxstock =  \DB::table('products')
         ->where('id',$request->product_id)
         ->max('stock');
@@ -177,10 +132,12 @@ public function show (Request $request){
        ->where('product_id',$request->product_id)
         ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->min('quantity');
+
         $minpurchase =  \DB::table('product_purchase')
         ->where('product_id',$request->product_id)
         ->whereBetween('created_at', [$request->tgl_awal,$request->tgl_akhir])
         ->min('quantity');
+
         $minstock =  \DB::table('products')
         ->where('id',$request->product_id)
         ->min('min_stock');
