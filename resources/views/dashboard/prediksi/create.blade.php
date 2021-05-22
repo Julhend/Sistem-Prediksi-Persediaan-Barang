@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="card card-primary">
         <div class="card-header with-border">
-            <form action="{{ route('prediksi.prediksi') }}" method="get">
+            <form action="{{ route('prediksi.create') }}" method="get">
 
                 <div class="row">
                     <div class="col-md-4 form-group">
@@ -16,9 +16,6 @@
                             <option value="{{ $product->id }}"
                                 {{ request()->product_id == $product->id ? 'selected' : ''}}>{{
                                                     $product->product_name }}</option>
-                            {{-- 
-                                            {{ old('product_id') == $product->id ? 'selected' : ''}}>{{
-                                            $product->product_name }}</option> --}}
                             @endforeach
                         </select>
                     </div>
@@ -43,7 +40,7 @@
             <div id="prediksi_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                     <div class="col-sm-12">
-                        <form action="{{ route('prediksi.index') }}" method="post">
+                        <form action="{{ route('prediksi.store') }}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('post') }}
                             @include('partials._errors')
@@ -66,6 +63,19 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    @foreach ($productss as $product)
+                                    @endforeach
+
+                                    <div class="form-group">
+                                        <label>Nama Barang</label>
+                                        <input readonly type="text" name="nama_barang" id="" placeholder="test"
+                                            class="form-control col-sm-12" value="{{ $product->product_name }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Id</label>
+                                        <input readonly type="number" name="id_barang" id="" placeholder="test"
+                                            class="form-control col-sm-12" value="{{ $product->id }}">
+                                    </div>
 
                                     <div class="form-group">
                                         <label>Permintaan Tertinggi</label>
@@ -116,7 +126,6 @@
                                     href="{{ route('prediksi.index') }}"><i class="fas fa-caret-right"></i>
                                     Proses</button>
                             </div>
-
                     </div>
                 </div>
             </div>

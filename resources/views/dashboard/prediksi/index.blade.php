@@ -6,6 +6,7 @@
 <div class="col-md-12">
     <div class="card card-primary">
         <div class="card-header with-border">
+            <label>Prediction Data Table</label>
             <a type="" class="btn btn-success btn float-right" style="" href="{{ route('prediksi.create') }}"><i
                     class="fas fa-chart-line"></i>
                 Create Prediksi</a>
@@ -53,23 +54,27 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($products as $index => $product)
+                            @foreach ($predict as $index => $predicts)
 
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $product -> codebar }}</td>
-                                <td>{{ $product -> product_name }}</td>
+                                <td>{{ $predicts -> input_persediaan }}</td>
+
+                                {{-- <td>{{ $product -> product_name }}</td>
                                 <td>{{ $product -> description }}</td>
                                 <td>{{ $product -> purchase_price }}</td>
                                 <td>{{ $product -> sale_price }}</td>
-                                <td>{{ $product -> stock }}</td>
-                                <td><img src="{{ $product -> image_path }}" style="width:50px;"
-                                        class="img-circle img-thumbnail" alt=""></td>
+                                <td>{{ $product -> stock }}</td> --}}
+                                {{-- <td><img src="{{ $product -> image_path }}" style="width:50px;"
+                                class="img-circle img-thumbnail" alt=""></td> --}}
                                 <td>
-                                    @if (auth()->user()->hasPermission('update_categories'))
+                                    {{-- prediksi.show --}}
+                                    <a href="{{ route('prediksi.index', $predicts->id) }}"
+                                        class="btn btn-primary btn-sm"><i class="fas fa-print"></i></a>
+                                    {{-- @if (auth()->user()->hasPermission('update_categories'))
                                     <a class="btn btn-warning btn-sm"
                                         href="{{ route('product.edit', $product->id) }}"><i class="fas fa-edit"></i>
-                                        @lang('site.edit')</a>
+                                    @lang('site.edit')</a>
                                     @else
                                     <a class="btn btn-warning btn-sm disabled"
                                         href="{{ route('product.edit', $product->id) }}"><i class="fas fa-edit"></i></i>
@@ -89,7 +94,7 @@
                                     <button type="submit" class="btn btn-danger btn-sm disabled"><i
                                             class="fas fa-trash"></i>
                                         @lang('site.delete')</button>
-                                    @endif
+                                    @endif --}}
 
                                 </td>
 
