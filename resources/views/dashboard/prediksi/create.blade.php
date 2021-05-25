@@ -14,8 +14,8 @@
                             <option value="">@lang('site.product')</option>
                             @foreach ($products as $product)
                             <option value="{{ $product->id }}"
-                                {{ request()->product_id == $product->id ? 'selected' : ''}}>{{
-                                                    $product->product_name }}</option>
+                                {{ request()->product_id == $product->id ? 'selected' : ''}}>
+                                {{$product->product_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -68,13 +68,13 @@
 
                                     <div class="form-group">
                                         <label>Nama Barang</label>
-                                        <input readonly type="text" name="nama_barang" id="" placeholder="test"
-                                            class="form-control col-sm-12" value="{{ $product->product_name }}">
+                                        <input readonly type="text" name="nama_barang" id="" placeholder="Nama Barang"
+                                            class="form-control col-sm-12" value="{{$product->product_name}}">
                                     </div>
                                     <div class="form-group">
                                         <label>Id</label>
-                                        <input readonly type="number" name="id_barang" id="" placeholder="test"
-                                            class="form-control col-sm-12" value="{{ $product->id }}">
+                                        <input readonly type="number" name="id_barang" id="" placeholder="Id"
+                                            class="form-control col-sm-12" value="{{$product->id }}">
                                     </div>
 
                                     <div class="form-group">

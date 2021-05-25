@@ -44,9 +44,6 @@
                                     aria-label="Platform(s): activate to sort column ascending" style="width: 320px;">
                                     Defuzifikasi</th>
                                 <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
-                                    aria-label="Platform(s): activate to sort column ascending" style="width: 320px;">
-                                    Kesimpulan</th>
-                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
                                     aria-label="Engine version: activate to sort column ascending"
                                     style="width: 359px;">
                                     @lang('site.action')</th>
@@ -58,15 +55,13 @@
 
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $predicts -> input_persediaan }}</td>
+                                <td>{{ $predicts -> product_name }}</td>
+                                <td>{{ $predicts -> permintaan_rendah }}</td>
+                                <td>{{ $predicts -> permintaan_tinggi }}</td>
+                                <td>{{ $predicts -> persediaan_sedikit }}</td>
+                                <td>{{ $predicts -> persediaan_banyak }}</td>
+                                <td>{{ $predicts -> defuzifikasi }}</td>
 
-                                {{-- <td>{{ $product -> product_name }}</td>
-                                <td>{{ $product -> description }}</td>
-                                <td>{{ $product -> purchase_price }}</td>
-                                <td>{{ $product -> sale_price }}</td>
-                                <td>{{ $product -> stock }}</td> --}}
-                                {{-- <td><img src="{{ $product -> image_path }}" style="width:50px;"
-                                class="img-circle img-thumbnail" alt=""></td> --}}
                                 <td>
                                     {{-- prediksi.show --}}
                                     <a href="{{ route('prediksi.index', $predicts->id) }}"
@@ -110,7 +105,6 @@
                                 <th rowspan="1" colspan="1">Persediaan Sedikit</th>
                                 <th rowspan="1" colspan="1">Persediaan Banyak</th>
                                 <th rowspan="1" colspan="1">Defuzifikasi</th>
-                                <th rowspan="1" colspan="1">Kesimpulan</th>
                                 <th rowspan="1" colspan="1">Action</th>
                             </tr>
                             </tr>

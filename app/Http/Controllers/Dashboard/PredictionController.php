@@ -81,6 +81,34 @@ class PredictionController extends Controller
         $pmb4 = $a4 * $pmb3;
         $pmbbertambah = $pmb4 + $minpurchase;
 
+        //mencari nilai tengah permintaan
+        $pmttgh1 = $maxsale - $minsale;
+        $pmttgh2 = $pmttgh1 / 2;
+        $pmttengah = $pmttgh2 + $minsale;
+
+        //mencari nilai tengah persediaan
+        $psdtgh1 = $maxstock - $minstock;
+        $psdtgh2 = $psdtgh1 / 2;
+        $psdtengah = $psdtgh2 + $minstock;
+
+        if ($inputpermintaan <= $pmttengah && $inputpersediaan >= $psdtengah ){
+            $deff = $pmb1;
+             $kesimpulan = "Jadi  jumlah  barang  yang  di  beli oleh pihak
+             Toko Harapan Baru  menurut  Metode  Sugeno  adalah $deff buah, jika Permintaan $inputpermintaan dan Persediaan $inputpersediaan";
+        } 
+        elseif ($inputpermintaan <= $pmttengah && $inputpersediaan <=  $psdtengah) {
+            $deff = $pmbberkurang;
+             $kesimpulan = "Jadi  jumlah  barang  yang  di  beli oleh pihak
+             Toko Harapan Baru  menurut  Metode  Sugeno  adalah $deff buah, jika Permintaan $inputpermintaan dan Persediaan $inputpersediaan";
+        } elseif ($inputpermintaan >= $pmttengah && $inputpersediaan >= $psdtengah) {
+             $deff = $pmb2;
+             $kesimpulan = "Jadi  jumlah  barang  yang  di  beli oleh pihak
+             Toko Harapan Baru  menurut  Metode  Sugeno  adalah $deff buah, jika Permintaan $inputpermintaan dan Persediaan $inputpersediaan";
+        } elseif ($inputpermintaan >= $pmttengah && $inputpersediaan <= $psdtengah) {
+             $deff = $pmbbertambah;
+             $kesimpulan = "Jadi  jumlah  barang  yang  di  beli oleh pihak
+             Toko Harapan Baru  menurut  Metode  Sugeno  adalah $deff buah, jika Permintaan $inputpermintaan dan Persediaan $inputpersediaan";
+        };
 
         $id = $request->product_name;
           Prediction::create([
@@ -97,6 +125,8 @@ class PredictionController extends Controller
               'rules_dua' => $a2,
               'rules_tiga' => $a3,
               'rules_empat' => $a4,
+              'defuzifikasi' => $deff,
+              'kesimpulan' => $kesimpulan,
           ]);
 
             return redirect()->back();
