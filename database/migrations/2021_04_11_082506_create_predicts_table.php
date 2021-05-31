@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePredictionsTable extends Migration
+class CreatePredictsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePredictionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('predictions', function (Blueprint $table) {
+        Schema::create('predicts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned()->nullable();
             $table->integer('input_persediaan')->nullable();
@@ -42,6 +42,6 @@ class CreatePredictionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('predictions');
+        Schema::dropIfExists('predicts');
     }
 }

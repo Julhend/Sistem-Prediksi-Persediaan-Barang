@@ -55,9 +55,7 @@ Route::group(
             Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
 
             // predict------------------------------
-            Route::resource('/prediksi', 'Dashboard\PredictionController')->except([
-                'show',
-            ]);
+            Route::resource('/prediksi', 'Dashboard\PredictionController');
             Route::get('/product-keluar', 'Dashboard\PredictionController@productKeluar')->name('prediksi.productKeluar');
             Route::get('/product-masuk', 'Dashboard\PredictionController@masuk')->name('prediksi.masuk');
             

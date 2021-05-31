@@ -127,7 +127,7 @@ class PurchaseController extends Controller
         //     dd($product_sale->quantity);
         // }
         $purchases = Purchase::findorfail($purchase)->first();
-        //dd($sale);
+        dd($purchase);
         $i = 0;
 
 

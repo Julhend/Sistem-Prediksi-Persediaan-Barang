@@ -6,7 +6,7 @@ use App\Sale;
 use App\Category;
 use App\Purchase;
 use App\ProductPurchase;
-use App\Prediction;
+use App\Predict;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -32,6 +32,12 @@ class Product extends Model
         ->withTimestamps();
     }
 
+     public function predicts()
+    {
+        return $this->belongsToMany(Predict::class, 'product_predict', 'product_id', 'predict_id')
+        ->withTimestamps();
+    }
+
     public function getImagePathAttribute()
     {
         return asset('uploads/product_images/' . $this->image);
@@ -40,9 +46,5 @@ class Product extends Model
     {
         $profit = $this->sale_price - $this->purchase_price;
         return $profit;
-    }
-     public function predict()
-    {
-        return $this->hasMany(Prediction::class);
     }
 }

@@ -30,19 +30,16 @@
                                     Product</th>
                                 <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
                                     aria-label="Platform(s): activate to sort column ascending" style="width: 283px;">
-                                    Permintaan Rendah</th>
+                                    Input Permintaan</th>
                                 <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
                                     aria-label="Platform(s): activate to sort column ascending" style="width: 283px;">
-                                    Permintaan Tinggi</th>
+                                    Input Persediaan</th>
                                 <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
                                     aria-label="Platform(s): activate to sort column ascending" style="width: 283px;">
-                                    Persediaan Sedikit</th>
-                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
-                                    aria-label="Platform(s): activate to sort column ascending" style="width: 320px;">
-                                    Persediaan Banyak</th>
-                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
-                                    aria-label="Platform(s): activate to sort column ascending" style="width: 320px;">
                                     Defuzifikasi</th>
+                                <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
+                                    aria-label="Platform(s): activate to sort column ascending" style="width: 320px;">
+                                    Tanggal</th>
                                 <th class="sorting" tabindex="0" aria-controls="product_table" rowspan="1" colspan="1"
                                     aria-label="Engine version: activate to sort column ascending"
                                     style="width: 359px;">
@@ -55,42 +52,22 @@
 
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $predicts -> product_name }}</td>
-                                <td>{{ $predicts -> permintaan_rendah }}</td>
-                                <td>{{ $predicts -> permintaan_tinggi }}</td>
-                                <td>{{ $predicts -> persediaan_sedikit }}</td>
-                                <td>{{ $predicts -> persediaan_banyak }}</td>
-                                <td>{{ $predicts -> defuzifikasi }}</td>
-
+                                <td>{{ $predicts->product_name }}</td>
+                                <td>{{ $predicts->input_permintaan }}</td>
+                                <td>{{ $predicts->input_persediaan }}</td>
+                                <td>{{ $predicts->defuzifikasi }}</td>
+                                <td>{{ $predicts->created_at }}</td>
                                 <td>
-                                    {{-- prediksi.show --}}
-                                    <a href="{{ route('prediksi.index', $predicts->id) }}"
+                                    <a href="{{ route('prediksi.show', $predicts->id) }}"
                                         class="btn btn-primary btn-sm"><i class="fas fa-print"></i></a>
-                                    {{-- @if (auth()->user()->hasPermission('update_categories'))
-                                    <a class="btn btn-warning btn-sm"
-                                        href="{{ route('product.edit', $product->id) }}"><i class="fas fa-edit"></i>
-                                    @lang('site.edit')</a>
-                                    @else
-                                    <a class="btn btn-warning btn-sm disabled"
-                                        href="{{ route('product.edit', $product->id) }}"><i class="fas fa-edit"></i></i>
-                                        @lang('site.edit')</a>
-                                    @endif
-                                    @if (auth()->user()->hasPermission('delete_products'))
-                                    <button id="delete" onclick="deletemoderator({{ $product->id }})"
-                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                                        @lang('site.delete')</button>
-                                    <form id="form-delete-{{ $product->id }}"
-                                        action="{{ route('product.destroy', $product->id) }}" method="post"
+                                    <button id="delete" onclick="deletemoderator({{ $predicts->id }})"
+                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    <form id="form-delete-{{ $predicts->id }}"
+                                        action="{{ route('purchase.destroy', $predicts->id) }}" method="post"
                                         style="display:inline-block;">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
                                     </form>
-                                    @else
-                                    <button type="submit" class="btn btn-danger btn-sm disabled"><i
-                                            class="fas fa-trash"></i>
-                                        @lang('site.delete')</button>
-                                    @endif --}}
-
                                 </td>
 
                             </tr>
@@ -100,11 +77,10 @@
                             <tr>
                                 <th rowspan="1" colspan="1">No</th>
                                 <th rowspan="1" colspan="1">Product</th>
-                                <th rowspan="1" colspan="1">Permintaan Rendah</th>
-                                <th rowspan="1" colspan="1">Permintaan Tinggi</th>
-                                <th rowspan="1" colspan="1">Persediaan Sedikit</th>
-                                <th rowspan="1" colspan="1">Persediaan Banyak</th>
+                                <th rowspan="1" colspan="1">Input Permintaan</th>
+                                <th rowspan="1" colspan="1">Input Persediaan</th>
                                 <th rowspan="1" colspan="1">Defuzifikasi</th>
+                                <th rowspan="1" colspan="1">Tanggal</th>
                                 <th rowspan="1" colspan="1">Action</th>
                             </tr>
                             </tr>

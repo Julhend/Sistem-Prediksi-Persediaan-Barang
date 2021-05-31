@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 
 use App\Product;
-use App\Prediction;
+use App\Predict;
 use App\ProductPurchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,11 +24,13 @@ class PredictionController extends Controller
      */
     public function index(Request $request)
     {
-        $predict = \DB::table('predictions')
-        ->leftJoin('products', 'predictions.product_id','=','products.id')
-        ->get();
+        // $predict = \DB::table('predictions')
+        // ->leftJoin('products', 'predictions.product_id','=','products.id')
+        // ->get();
       
+        $predict = Predict::all();
 
+// dd($predict);
         return view('dashboard.prediksi.index', compact('predict'));
     }
 
@@ -111,7 +113,7 @@ class PredictionController extends Controller
         };
 
         $id = $request->product_name;
-          Prediction::create([
+          Predict::create([
               'product_id' => $ids,
               'input_permintaan' => $request['input_permintaan'],
               'input_persediaan' => $request['input_persediaan'],
@@ -132,11 +134,34 @@ class PredictionController extends Controller
             return redirect()->back();
     }
 
-public function show (Request $request){
-    $prediksi = Prediction::all();
-    
-}
- public function create(Request $request)
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Predict  $predict
+     * @return \Illuminate\Http\Response
+     */
+   public function show(Predict $predict)
+    {
+    //   $predict = \DB::table('predictions')
+    //     ->leftJoin('products', 'predictions.product_id','=','products.id')
+    //     ->where('predictions.id',$id)
+    //     ->get();
+
+        // $product_predict = $predict->products;
+        //  $predicts = Prediction::findorfail($predict)->first();
+
+
+        // foreach ($product_predict as $key => $product_predicts) {
+        //     dd($product_predicts->product_name);
+        // }
+
+        // dd($predict);
+
+        return view('dashboard.prediksi.showtwo', compact('predict'));
+    }
+
+
+     public function create(Request $request)
     {   
         
         $products = Product::all();
@@ -182,7 +207,18 @@ public function show (Request $request){
             'minpurchase',
             'productss',
         ));
+    }
 
+     public function destroy(Predict $predict)
+    {
+        // foreach ($predict->products as $key => $product) {
+        //     $product->update([
+        //         'stock' => $product->stock - $product->pivot->quantity
+        //     ]);
+        // }
+        $predict->delete();
+        toast('Predict deleted Successfully', 'error', 'top-right');
+        return redirect()->back();
+    }
 
-}
 }
