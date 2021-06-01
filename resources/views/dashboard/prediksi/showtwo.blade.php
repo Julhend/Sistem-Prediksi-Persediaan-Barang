@@ -183,108 +183,107 @@
 <body>
     <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
         <div class="card">
-            {{-- <div class="card-header p-4" style="border: 2px solid #000000;border-radius: 10px;">
-                <img src="{{ asset('/uploads/settings/'.$logo) }}" style="width:200px;" alt="" srcset="">
-            <div class="float-right text-center">
-                <h3 class="mb-0">{{ $store_name }}</h3>
-                Address : {{ $address }} <br>Phone : {{ $phone }}
+            <div class="card-body" style="padding: 0;">
+                <div class="text-center">
+                    <h4>Laporan Hasil Prediksi Barang</h4>
+                    Tanggal : {{$prediksi->created_at}}
+                </div>
             </div>
-        </div> --}}
-        <div class="card-body" style="padding: 0;">
-            <div class="text-center too-border">
-                <h4>Laporan Hasil Prediksi Barang</h4>
+            <div class="table-responsive-sm">
+                <table class="table table-bordered text-center" style="margin-bottom: 1;">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">Produk</th>
+                            <th style="width: 100px;text-align:center;">Input Persediaan</th>
+                            <th style="width: 100px;text-align:center;">Input Permintaan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($product_predict as $index => $product_predicts)
+                        @endforeach
+                        <tr>
+                            <td>{{ $product_predicts->product_name }}</td>
+                            <td>{{ $prediksi->input_persediaan }}</td>
+                            <td>{{ $prediksi->input_permintaan }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <h5>Hasil :</h5>
+                </div>
+                <table class="table table-bordered text-center" style="margin-bottom: 1;">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">Permintaan Rendah</th>
+                            <th style="width: 100px;">Permintaan Tinggi</th>
+                            <th style="width: 100px;text-align:center;">Persediaan Sedikit</th>
+                            <th style="width: 100px;text-align:center;">Persediaan Banyak</th>
+                            <th style="width: 100px;text-align:center;">Pembelian Berkurang</th>
+                            <th style="width: 100px;text-align:center;">Pembelian Bertambah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{number_format($prediksi->permintaan_rendah,3) }}</td>
+                            <td>{{number_format($prediksi->permintaan_tinggi,3) }}</td>
+                            <td>{{number_format($prediksi->persediaan_sedikit,3) }}</td>
+                            <td>{{number_format($prediksi->persediaan_banyak,3) }}</td>
+                            <td>{{number_format($prediksi->pembelian_berkurang) }}</td>
+                            <td>{{number_format($prediksi->pembelian_bertambah) }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <table class="table table-bordered text-center" style="margin-bottom: 1;">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">Hasil Rules 1</th>
+                            <th style="width: 100px;">Hasil Rules 2</th>
+                            <th style="width: 100px;text-align:center;">Hasil Rules 3</th>
+                            <th style="width: 100px;text-align:center;">Hasil Rules 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{number_format($prediksi->rules_satu,3) }}</td>
+                            <td>{{number_format($prediksi->rules_dua,3) }}</td>
+                            <td>{{number_format($prediksi->rules_tiga,3) }}</td>
+                            <td>{{number_format($prediksi->rules_empat,3) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered" style="margin-bottom: 1;">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;text-align:center;">Defuzifikasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td>{{number_format($prediksi->defuzifikasi) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <h4>Kesimpulan :</h4>
+                </div>
+                <div class="too-border text-center">
+                    <p class="mb-0">{{ $prediksi->kesimpulan }}
+                    </p>
+                </div>
             </div>
-            {{-- <div class="row">
-                <div class="col-md-6 col-print-6 text-center">
-                    <div class="too-border">
-                        <h4> Date: <span style="font-size:15px">{{ date_format($purchase->created_at,"d/m/Y") }}</span>
-            </h4>
 
-            <h4>Admin : <span style="font-size:15px">{{ Auth::user()->first_name }}
-                    {{ Auth::user()->last_name }}</span> </h4>
-        </div>
-    </div>
-    <div class="col-md-6 col-print-6 text-center">
-        <div class="too-border">
-            <h4>Supplier Information</h4>
-        </div>
-        <div class="too-border">
-            Supplier Name : {{ $provider_purchases->provider_name }}<br>Address :
-            {{ $provider_purchases->address }}
-            <br>Phone : {{ $provider_purchases->phone }}
-        </div>
-    </div> --}}
-    </div>
-    <div class="table-responsive-sm">
-        <table class="table table-bordered" style="margin-bottom: 1;">
-            <thead>
-                <tr>
-                    <th style="width: 100px;">Product</th>
-                    <th style="width: 100px;text-align:center;">Input Persediaan</th>
-                    <th style="width: 100px;text-align:center;">Input Permintaan</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($product_predict as $index => $product_predicts)
-                @endforeach
-                <tr>
-                    <td>{{ $product_predicts->product_name }}</td>
-                    <td>{{ $prediksi->input_persediaan }}</td>
-                    <td>{{ $prediksi->input_permintaan }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="table table-bordered" style="margin-bottom: 1;">
-            <thead>
-                <tr>
-                    <th style="width: 100px;">Permintaan Rendah</th>
-                    <th style="width: 100px;">Permintaan Tinggi</th>
-                    <th style="width: 100px;text-align:center;">Persediaan Sedikit</th>
-                    <th style="width: 100px;text-align:center;">Persediaan Banyak</th>
-                    <th style="width: 100px;text-align:center;">Pembelian Berkurang</th>
-                    <th style="width: 100px;text-align:center;">Pembelian Bertambah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{number_format($prediksi->permintaan_rendah,3) }}</td>
-                    <td>{{number_format($prediksi->permintaan_tinggi,3) }}</td>
-                    <td>{{number_format($prediksi->persediaan_sedikit,3) }}</td>
-                    <td>{{number_format($prediksi->persediaan_banyak,3) }}</td>
-                    <td>{{number_format($prediksi->pembelian_berkurang) }}</td>
-                    <td>{{number_format($prediksi->pembelian_bertambah) }}</td>
-                </tr>
-
-            </tbody>
-        </table>
-        <div class="float-right text-left" style="width:25%">
-            <div class="too-border">
-                <strong>
-                    {{-- Subtotal :
-                                Rp.{{ number_format($purchase->total,2) }}<br>Discount : --}}
-                    {{-- Rp.{{ number_format($purchase->discount,2) }}
-                    <br>Total amount :
-                    Rp.{{ number_format($purchase->total_amount,2) }}<br>Payment :
-                    Rp.{{ number_format($purchase->paid,2) }}
-                    <br>Rest a payer :
-                    Rp.{{ number_format($purchase->total_amount - $purchase->paid,2) }} --}}
-                </strong>
-            </div>
         </div>
     </div>
 
     </div>
     </div>
-
-    </div>
-    </div>
-    <div class="too-footer offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
+    {{-- <div class="too-footer offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
         <div class="too-border text-center">
             <p class="mb-0">{{ $prediksi->kesimpulan }}
-            </p>
-        </div>
+    </p>
     </div>
+    </div> --}}
 </body>
 
 </html>
