@@ -60,10 +60,12 @@
                                 <td>
                                     <a href="{{ route('prediksi.show', $predicts->id) }}"
                                         class="btn btn-primary btn-sm"><i class="fas fa-print"></i></a>
+
+
                                     <button id="delete" onclick="deletemoderator({{ $predicts->id }})"
                                         class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                     <form id="form-delete-{{ $predicts->id }}"
-                                        action="{{ route('purchase.destroy', $predicts->id) }}" method="post"
+                                        action="{{ route('prediksi.destroy', $predicts->id) }}" method="post"
                                         style="display:inline-block;">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}

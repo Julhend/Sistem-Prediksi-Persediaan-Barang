@@ -46,7 +46,7 @@ Route::group(
             Route::put('/updateprice/{id}', 'Dashboard\ProductController@updateprice');
 
             Route::put('/paymentdue/{id}', 'Dashboard\SaleController@paymentdue');
-            Route::put('/paymentduep/{id}', 'Dashboard\purchaseController@paymentduep');
+            Route::put('/paymentduep/{id}', 'Dashboard\PurchaseController@paymentduep');
             Route::resource('/sale', 'Dashboard\SaleController');
             Route::resource('/purchase', 'Dashboard\PurchaseController');
             Route::resource('/client', 'Dashboard\ClientController')->except([
@@ -55,9 +55,7 @@ Route::group(
             Route::get('/client/detail/{id}', 'Dashboard\ClientController@saledetail')->name('client.detail');
 
             // predict------------------------------
-            Route::resource('/prediksi', 'Dashboard\PredictionController');
-            Route::get('/product-keluar', 'Dashboard\PredictionController@productKeluar')->name('prediksi.productKeluar');
-            Route::get('/product-masuk', 'Dashboard\PredictionController@masuk')->name('prediksi.masuk');
+            Route::resource('/prediksi', 'Dashboard\PredictController');
             
             //------------------------------------------
 

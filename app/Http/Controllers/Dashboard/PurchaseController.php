@@ -123,11 +123,8 @@ class PurchaseController extends Controller
     {
         $product_purchases = $purchase->products;
         $provider_purchases = $purchase->provider;
-        // foreach ($product_sales as $key => $product_sale) {
-        //     dd($product_sale->quantity);
-        // }
         $purchases = Purchase::findorfail($purchase)->first();
-        dd($purchase);
+        // dd($purchase);
         $i = 0;
 
 

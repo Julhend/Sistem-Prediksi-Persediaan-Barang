@@ -5,17 +5,14 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Product;
 use App\Predict;
+use App\Purchase;
 use App\ProductPurchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Response;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManagerStatic as Image;
 
 
 
-class PredictionController extends Controller
+class PredictController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,13 +21,7 @@ class PredictionController extends Controller
      */
     public function index(Request $request)
     {
-        // $predict = \DB::table('predictions')
-        // ->leftJoin('products', 'predictions.product_id','=','products.id')
-        // ->get();
-      
-        $predict = Predict::all();
-
-// dd($predict);
+        $predict = Predict::with('products')->get();
         return view('dashboard.prediksi.index', compact('predict'));
     }
 
@@ -45,6 +36,7 @@ class PredictionController extends Controller
         $inputpermintaan = $request->input_permintaan;
         $inputpersediaan = $request->input_persediaan;
         $ids = $request->id_barang;
+        $barang = $request->nama_barang;
         
         // mencari nilai permintaan rendah
         $pmt1 = $maxsale - $inputpermintaan;
@@ -112,8 +104,7 @@ class PredictionController extends Controller
              Toko Harapan Baru  menurut  Metode  Sugeno  adalah $deff buah, jika Permintaan $inputpermintaan dan Persediaan $inputpersediaan";
         };
 
-        $id = $request->product_name;
-          Predict::create([
+        $predicts = Predict::create([
               'product_id' => $ids,
               'input_permintaan' => $request['input_permintaan'],
               'input_persediaan' => $request['input_persediaan'],
@@ -129,8 +120,9 @@ class PredictionController extends Controller
               'rules_empat' => $a4,
               'defuzifikasi' => $deff,
               'kesimpulan' => $kesimpulan,
+               'product_name' => $barang,
           ]);
-
+        $predicts->products()->attach($ids);
             return redirect()->back();
     }
 
@@ -140,24 +132,12 @@ class PredictionController extends Controller
      * @param  \App\Predict  $predict
      * @return \Illuminate\Http\Response
      */
-   public function show(Predict $predict)
+   public function show(Predict $prediksi)
     {
-    //   $predict = \DB::table('predictions')
-    //     ->leftJoin('products', 'predictions.product_id','=','products.id')
-    //     ->where('predictions.id',$id)
-    //     ->get();
-
-        // $product_predict = $predict->products;
-        //  $predicts = Prediction::findorfail($predict)->first();
-
-
-        // foreach ($product_predict as $key => $product_predicts) {
-        //     dd($product_predicts->product_name);
-        // }
-
-        // dd($predict);
-
-        return view('dashboard.prediksi.showtwo', compact('predict'));
+        $product_predict = $prediksi->products;
+        $predicts = Predict::findorfail($prediksi)->first();
+        // dd($prediksi);
+        return view('dashboard.prediksi.showtwo', compact('prediksi','product_predict'));
     }
 
 
@@ -209,16 +189,10 @@ class PredictionController extends Controller
         ));
     }
 
-     public function destroy(Predict $predict)
+     public function destroy(Predict $prediksi)
     {
-        // foreach ($predict->products as $key => $product) {
-        //     $product->update([
-        //         'stock' => $product->stock - $product->pivot->quantity
-        //     ]);
-        // }
-        $predict->delete();
-        toast('Predict deleted Successfully', 'error', 'top-right');
+         $prediksi->delete();
+         toast('Predict deleted Successfully', 'error', 'top-right');
         return redirect()->back();
     }
-
 }

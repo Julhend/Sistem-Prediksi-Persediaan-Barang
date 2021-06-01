@@ -13,8 +13,6 @@ class Purchase extends Model
         'quantity' => 'array',
     ];
 
-    // protected $fillable = ['product_name'];
-
     public function provider()
     {
         return $this->belongsTo(Provider::class);

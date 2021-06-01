@@ -16,7 +16,6 @@ class ProductPredict extends Migration
          Schema::create('product_predict', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
-            $table->string('product_name');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('predict_id')->unsigned();
             $table->foreign('predict_id')->references('id')->on('predicts')->onDelete('cascade');

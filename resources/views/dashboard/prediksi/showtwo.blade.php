@@ -225,15 +225,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($predict as $index => $predicts)
-                <tr>
-
-                    <td>{{ $predicts->product_name }}</td>
-                    <td>{{ $predicts->input_persediaan }}</td>
-                    <td>{{ $predicts->input_permintaan }}</td>
-
-                </tr>
+                @foreach ($product_predict as $index => $product_predicts)
                 @endforeach
+                <tr>
+                    <td>{{ $product_predicts->product_name }}</td>
+                    <td>{{ $prediksi->input_persediaan }}</td>
+                    <td>{{ $prediksi->input_permintaan }}</td>
+                </tr>
             </tbody>
         </table>
 
@@ -250,12 +248,12 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{number_format( $predicts->permintaan_rendah,3) }}</td>
-                    <td>{{number_format($predicts->permintaan_tinggi,3) }}</td>
-                    <td>{{number_format($predicts->persediaan_sedikit,3) }}</td>
-                    <td>{{number_format($predicts->persediaan_banyak,3) }}</td>
-                    <td>{{number_format($predicts->pembelian_berkurang) }}</td>
-                    <td>{{number_format($predicts->pembelian_bertambah) }}</td>
+                    <td>{{number_format($prediksi->permintaan_rendah,3) }}</td>
+                    <td>{{number_format($prediksi->permintaan_tinggi,3) }}</td>
+                    <td>{{number_format($prediksi->persediaan_sedikit,3) }}</td>
+                    <td>{{number_format($prediksi->persediaan_banyak,3) }}</td>
+                    <td>{{number_format($prediksi->pembelian_berkurang) }}</td>
+                    <td>{{number_format($prediksi->pembelian_bertambah) }}</td>
                 </tr>
 
             </tbody>
@@ -283,7 +281,7 @@
     </div>
     <div class="too-footer offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
         <div class="too-border text-center">
-            <p class="mb-0">{{ $predicts->kesimpulan }}
+            <p class="mb-0">{{ $prediksi->kesimpulan }}
             </p>
         </div>
     </div>

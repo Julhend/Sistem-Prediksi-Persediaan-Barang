@@ -16,6 +16,7 @@ class CreatePredictsTable extends Migration
         Schema::create('predicts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned()->nullable();
+            $table->string('product_name')->nullable();
             $table->integer('input_persediaan')->nullable();
             $table->integer('input_permintaan')->nullable();
             $table->double('permintaan_rendah')->nullable();
