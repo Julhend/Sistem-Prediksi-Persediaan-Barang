@@ -6,10 +6,10 @@
 <div class="col-md-12">
     <div class="card card-primary">
         <div class="card-header with-border">
-            <label>Prediction Data Table</label>
+            <label>Data Tabel Prediksi</label>
             <a type="" class="btn btn-success btn float-right" style="" href="{{ route('prediksi.create') }}"><i
                     class="fas fa-chart-line"></i>
-                Create Prediksi</a>
+                Buat Prediksi</a>
         </div>
     </div>
     <!-- /.card-header -->

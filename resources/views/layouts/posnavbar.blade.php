@@ -24,14 +24,6 @@
                 aria-expanded="false">
                 {{ LaravelLocalization::getCurrentLocaleName() }}
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdown09">
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
-                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                    {{ $properties['native'] }}
-                </a>
-                @endforeach
-            </div>
         </li>
         <li class="dropdown user user-menu" style="font-size: 1.3em;padding: 5px">
             <a href=" #" class="user-panel d-flex" style="text-decoration: none;" data-toggle="dropdown">

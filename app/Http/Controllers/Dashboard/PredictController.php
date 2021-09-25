@@ -40,24 +40,54 @@ class PredictController extends Controller
         $barang = $request->nama_barang;
 
         // mencari nilai permintaan rendah
-        $pmt1 = $maxsale - $inputpermintaan;
-        $pmt2 = $maxsale - $minsale;
-        $pmtrendah = $pmt1 / $pmt2;
+        if ($inputpermintaan < $minsale){
+            $pmtrendah = 1;
+        } elseif ($inputpermintaan > $maxsale) {
+           $pmtrendah = 0;
+        } else {
+            //rumus lama
+            $pmt1 = $maxsale - $inputpermintaan;
+            $pmt2 = $maxsale - $minsale;
+            $pmtrendah = $pmt1 / $pmt2;
+        }
 
         // mencari nilai permintaan tinggi
-        $pmt3 = $inputpermintaan - $minsale;
-        $pmt4 = $maxsale - $minsale;
-        $pmttinggi = $pmt3 / $pmt4;
+        if ($inputpermintaan < $minsale){
+            $pmttinggi = 1;
+        } elseif ($inputpermintaan > $maxsale) {
+              $pmttinggi = 0;
+        } else {
+            //rumuslama
+            $pmt3 = $inputpermintaan - $minsale;
+            $pmt4 = $maxsale - $minsale;
+            $pmttinggi = $pmt3 / $pmt4;
+        }
 
         //mencari nilai persediaan sedikit
-        $psd1 = $maxstock - $inputpersediaan;
-        $psd2 = $maxstock - $minstock;
-        $psdrendah = $psd1 / $psd2;
+          if ($inputpersediaan < $minstock){
+            $psdrendah = 1;
+        } elseif ($inputpersediaan > $maxstock) {
+              $psdrendah = 0;
+        } else {
+            //rumuslama
+              $psd1 = $maxstock - $inputpersediaan;
+              $psd2 = $maxstock - $minstock;
+              $psdrendah = $psd1 / $psd2;
+        }
 
         //mencari nilai persediaan banyak
-        $psd3 = $inputpersediaan - $minstock;
+        if ($inputpersediaan < $minstock){
+            $psdtinggi = 1;
+        } elseif ($inputpersediaan > $maxstock) {
+              $psdtinggi = 0;
+        } else {
+            //rumuslama
+               $psd3 = $inputpersediaan - $minstock;
         $psd4 = $maxstock - $minstock;
         $psdtinggi = $psd3 / $psd4;
+        }
+
+      
 
 
         //rules1
